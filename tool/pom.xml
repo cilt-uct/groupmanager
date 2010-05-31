@@ -4,7 +4,7 @@
    <name>Sakai Group Manager Tool</name>
    <groupId>org.sakaiproject.groupmanager</groupId>
    <artifactId>sakai-groupmanager-tool</artifactId>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2</version>
    <organization>
       <name>Sakai Project</name>
       <url>http://sakaiproject.org/</url>
@@ -17,7 +17,7 @@
    <parent>
       <groupId>org.sakaiproject</groupId>
       <artifactId>groupmanager</artifactId>
-      <version>1.1-SNAPSHOT</version><!--GroupManager.version-->
+      <version>1.1</version><!--GroupManager.version-->
    </parent>
 
    <properties>
