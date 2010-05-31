@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                      http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Sakai Group Manager</name>
+    <groupId>org.sakaiproject</groupId>
+    <artifactId>groupmanager</artifactId>
+    <organization>
+        <name>Sakai Project</name>
+        <url>http://sakaiproject.org/</url>
+    </organization>
+    <inceptionYear>2010</inceptionYear>
+    <packaging>pom</packaging>
+    <version>0.1</version><!--GroupManager.version-->
+
+    <!-- Sakai master pom is the parent -->
+    <parent>
+        <artifactId>master</artifactId>
+        <groupId>org.sakaiproject</groupId>
+        <version>2.5.0</version>
+        <relativePath>../master/pom.xml</relativePath>
+    </parent>
+
+    <profiles>
+        <profile>
+            <id>full</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>tool</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>tool</id>
+            <modules>
+                <module>tool</module>
+            </modules>
+        </profile>
+    </profiles>
+    <dependencies>
+
+    </dependencies>
+
+    <!-- handles the management of all related dependencies -->
+    <dependencyManagement>
+        <dependencies>
+    		<dependency>
+				<groupId>org.sakaiproject.kernel</groupId>
+				<artifactId>sakai-kernel-api</artifactId>
+				<version>1.0.9</version>
+				<scope>provided</scope>				
+			</dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- ensure master jars can be found -->
+    <repositories>
+        <repository>
+            <id>sakai-maven</id>
+            <name>Sakai Maven Repo</name>
+            <layout>default</layout>
+            <url>http://source.sakaiproject.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+</project>

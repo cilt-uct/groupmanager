@@ -1,0 +1,23 @@
+.usernames {
+    padding-top: 15px;
+    background-repeat: no-repeat;
+    background-position: 5px 15px;
+    padding-left: 25px;
+    font-weight: bold;
+    background-image: url(/library/image/silk/paste_plain.png);
+}
+
+.searchTitle {
+    padding-top: 15px;
+    background-repeat: no-repeat;
+    background-position: 5px 15px;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    background-image: url(/library/image/silk/magnifier.png);
+}
+
+.searchBoxParent {
+    width: 95%;
+}
+
