@@ -64,7 +64,7 @@ var groupHelper = function($){
                 rowTemplateForListRow = row.clone();
                 //remove current dom row
                 row.remove();
-                
+
                 var ebRefs = [ "/direct/membership/site/"+ siteId,  //will be response object ref0
                     "/direct/site/"+ siteId +"?includeGroups=true" ];            //will be response object ref1
                 $.ajax({
@@ -103,17 +103,31 @@ var groupHelper = function($){
                                               var group = {
                                                   "id": groupFull.id,
                                                   "title": groupFull.title,
-                                                  "description": groupFull.description
+                                                  "description": groupFull.description,
+                                                  "members": []
                                               };
-                                              siteGroups.push( group );
+
+                                             if ( groupFull.users !== null || groupFull.users.length > 0){
+                                                for (var n in groupFull.users){
+                                                  var memberUserId = groupFull.users[n],
+                                                  member = {
+                                                      "userId": memberUserId,     //Uuid
+                                                      "userDisplayId": null, //memberFull.userDisplayId, eg Staffnumber will populate later
+                                                      "userSortName": null //memberFull.userSortName  will populate later
+                                                  };
+                                                  group.members.push( member );
+                                                }
+                                             }
+                                             siteGroups.push( group );
+                                             siteGroupMembers.push( { "groupId": groupFull.id, "members": group.members } );
                                          }
-                                      }                                                          
-                                    if( siteGroups.length > 0){
-                                        _getSiteGroupMembers();
-                                    }else{
+                                      }
+                                    if( siteGroups.length === 0){
                                         siteHasGroups = false;
                                         $("#errors").text("This site has no groups").removeClass().addClass("information").show();
                                         $("img.img-loading").remove();
+                                    }else{
+                                        _event_showBindTableGroups();
                                     }
 
                                 }else if (status === 500){
@@ -142,71 +156,6 @@ var groupHelper = function($){
 
             },
 
-            _getSiteGroupMembers = function(){
-                var groupRefs = [],
-                batches = [];
-                for ( var i in siteGroups){
-                    if (groupRefs.length === 25){      //check if 20 has been reached
-                        batches.push(groupRefs);
-                        groupRefs = [];
-                    }
-                    groupRefs.push( "/direct/membership/group/"+siteGroups[i].id );
-                }
-
-                if (batches.length < 2){
-                    // dealing with <= 20 groups
-                    batches.push(groupRefs);
-                }
-
-                //use batch EB processor to avoid multiple Ajax requests.
-                _ajaxUndoBefore = function(){
-                    ajaxCustomErrorMsg = "Oops, the server could not give us the Groups in this site. \n\n Please refresh the page to try again.";
-                };
-                _ajaxUndo = function(){
-                    $("#groups-selector").hide();
-                    $("img.img-loading").remove();
-                };
-
-                var getServerGroupMembers = function(currentRefs, isLastBatch){
-                    $.ajax({
-                        url: "/direct/batch?_refs=" + currentRefs.toString(),
-                        dataType: 'json',
-                        cache: false,
-                        success: function(d){
-                            for (var i in d){
-                                var dRef = d[i],
-                                group = {
-                                    "groupId": dRef.reference.replace("/direct/membership/group/",""),
-                                    "members": []
-                                };
-                                for (var n in dRef.data.membership_collection){
-                                  var memberFull = dRef.data.membership_collection[n],
-                                  member = {
-                                      "userId": memberFull.userId,     //Uuid
-                                      "userDisplayId": memberFull.userDisplayId, //eg Staffnumber
-                                      "userSortName": memberFull.userSortName
-                                  };
-                                  group.members.push( member );
-                                  siteGroupMembers.push( group );
-                                }
-                            }
-                            if (isLastBatch){
-                                _event_showBindTableGroups();
-                            }
-                        }
-                    });
-                };
-
-                for ( var n in batches ){
-                    if ( batches.length === (n*1 +1) ){  //do not simplify  n*1
-                        //this is the last batch
-                        getServerGroupMembers(batches[n], true);
-                    }else{
-                        getServerGroupMembers(batches[n], false);
-                    }
-                }
-            },
-
             _event_showBindTableGroups = function(){
                 $("#nav-home").hide();
                 // now we have the groups sort
@@ -215,7 +164,7 @@ var groupHelper = function($){
 
                 //clear any crurrent rows
                 table.find("tr[name=g-r]").remove();
-                
+
                 for ( var i in siteGroups ){
                     var group = siteGroups[i],
                     groupSize = 0,
@@ -229,12 +178,7 @@ var groupHelper = function($){
                             //.attr("title", group.description)
                             .text(_fixGroupDescriptionLength(group.description));
 
-                    for ( var m in siteGroupMembers ){
-                        if(group.id === siteGroupMembers[m].groupId ){
-                            groupSize = siteGroupMembers[m].members.length;
-                        }
-                    }
-                    rowTemp.find("td[name=g-s]").text(groupSize);
+                    rowTemp.find("td[name=g-s]").text( ( typeof group.members !== "undefined" && group.members.length > 0) ? group.members.length : 0);
                     //add to dom
                     table.find("tbody").append(rowTemp);
                 }
@@ -737,13 +681,37 @@ var groupHelper = function($){
                 groupTitle = thatRow.find("td[name=g-n] a").text(),
                 groupDescription = thatRow.find("td[name=g-d]").text();
 
+                currentGroup.groupId = groupId;
+                currentGroup.groupTitle = groupTitle;
+                currentGroup.groupDescription = groupDescription;
+                //clear current group members before population
+                currentGroup.selectedMembers = [];
+                currentGroup.members = [];
+
+
                 if( groupId !== null ){
-                    currentGroup.groupId = groupId;
-                    currentGroup.groupTitle = groupTitle;
-                    currentGroup.groupDescription = groupDescription;
-                    //clear current group members before population
-                    currentGroup.selectedMembers = [];
-                    currentGroup.members = [];
+                    //populate this groups members' details
+                    for ( var i in siteGroupMembers ){
+                        if (groupId === siteGroupMembers[i].groupId && siteGroupMembers[i].members.length > 0){
+                            if ( siteGroupMembers[i].members[0].userDisplayId === null &&  siteGroupMembers[i].members[0].userSortName === null){
+                                //this group's member details have not been populated yet, populate now
+                                for ( var m in siteGroupMembers[i].members){
+                                    for ( var g in siteMembers){
+                                        if ( siteMembers[g].userId === siteGroupMembers[i].members[m].userId){
+                                            var memberFull = siteMembers[g],
+                                            member = {
+                                                "userId": memberFull.userId,     //Uuid
+                                                "userDisplayId": memberFull.userDisplayId, //eg Staffnumber
+                                                "userSortName": memberFull.userSortName
+                                            };
+                                            siteGroupMembers[i].members[m] = member;
+                                        }
+                                    }
+                                }
+                            }
+                            currentGroup.members = siteGroupMembers[i].members;
+                        }
+                    }
 
                     //clear member filter box
                     $("#members-filter").val("");
@@ -823,7 +791,7 @@ var groupHelper = function($){
                 $("#group-members-paste").val("");
                 $("#group-current-members-autocomplete li").remove();
                 currentGroup.selectedMembers = [];
-                
+
                 var isNewGroup = ( typeof _isNewGroup !== "undefined" && _isNewGroup),
                 btnText = isNewGroup ? "Save and add members" : "Update",
                 buttonDo = $("#doGroupAction"),
@@ -885,7 +853,6 @@ var groupHelper = function($){
                             currentGroup.groupDescription = group.description;
                             //clear current group members before population
                             currentGroup.selectedMembers = [];
-                            currentGroup.members = [];
 
                             if (! isNewGroup ){
                                 for ( var i in siteGroups ){
@@ -924,6 +891,7 @@ var groupHelper = function($){
                                 $("#group-members-paste").val("");
                                 $("#group-current-members-autocomplete li").remove();
                                 currentGroup.selectedMembers = [];
+                                currentGroup.members = [];
                             }
                             _event_resizeFrame();
                         }
