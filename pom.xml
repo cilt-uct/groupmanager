@@ -69,4 +69,35 @@
         </repository>
     </repositories>
 
+    <!-- define the license -->
+    <licenses>
+            <license>
+                    <name>Educational Community License, Version 2.0</name>
+                    <url>http://www.osedu.org/licenses/ECL-2.0/ecl2.txt</url>
+                    <distribution>repo</distribution>
+            </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</connection>
+        <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</developerConnection>
+        <url>https://source.sakaiproject.org/contrib/uct/group-manager/trunk</url>
+    </scm>
+
+    <developers>
+        <developer>
+                <id>lovemore.nalube@uct.ac.za</id>
+                <name>Lovemore Nalube</name>
+                <email>lovermore.nalube@uct.ac.za</email>
+                <organization>Centre for Educational Technology, University of
+                        Cape Town</organization>
+                <organizationUrl>http://www.cet.uct.ac.za</organizationUrl>
+                <timezone>+2</timezone>
+                <roles>
+                        <role>lead developer</role>
+                </roles>
+        </developer>
+    </developers>
+
+
 </project>
