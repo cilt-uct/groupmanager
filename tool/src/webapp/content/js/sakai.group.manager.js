@@ -688,7 +688,6 @@ var groupHelper = function($){
                 currentGroup.selectedMembers = [];
                 currentGroup.members = [];
 
-
                 if( groupId !== null ){
                     //populate this groups members' details
                     for ( var i in siteGroupMembers ){
@@ -853,13 +852,26 @@ var groupHelper = function($){
                             currentGroup.groupDescription = group.description;
                             //clear current group members before population
                             currentGroup.selectedMembers = [];
+                            currentGroup.members = [];
+
+                            if ( group.users !== null || group.users.length > 0){
+                                for (var n in group.users){
+                                  var memberUserId = group.users[n],
+                                  member = {
+                                      "userId": memberUserId,     //Uuid
+                                      "userDisplayId": null, //memberFull.userDisplayId, eg Staffnumber will populate later
+                                      "userSortName": null //memberFull.userSortName  will populate later
+                                  };
+                                  currentGroup.members.push( member );
+                                }
+                             }
 
                             if (! isNewGroup ){
                                 for ( var i in siteGroups ){
                                     if ( siteGroups[i].id === currentGroup.groupId ){
                                         siteGroups[i].title = currentGroup.groupTitle;
                                         siteGroups[i].description = currentGroup.groupDescription;
-                                        ///console.log("Updated group in mem from %o to %o", siteGroups[i], currentGroup);
+                                        siteGroups[i].members = currentGroup.members;
                                     }
                                 }
                                 //sort and refresh list table
