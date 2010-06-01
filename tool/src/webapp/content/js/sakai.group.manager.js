@@ -1,7 +1,7 @@
 var groupHelper = function($){
 
     var //configurable vars
-            debug = true,
+            debug = false,
             afterRemovalTime = 60000,  //how long is a user name shown after removal to allow undo action? in milisec.
             //images
             images = {
