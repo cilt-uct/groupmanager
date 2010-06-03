@@ -8,11 +8,17 @@
 <link href="/library/skin/default/tool.css" rsf:id="scr=portal-matter" type="text/css" rel="stylesheet" media="all" />
 <link rel="stylesheet" type="text/css" href="../css/group-manager.css" />
 <link rel="stylesheet" type="text/css" href="../css/jquery.autocompletefb.css" />
+<link rel="stylesheet" type="text/css" href="../css/fluid/InlineEdit.css" />
 <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
 <script type='text/javascript' src='../js/jquery.autocomplete/jquery.bgiframe.min.js'></script>
 <script type='text/javascript' src='../js/jquery.autocomplete/jquery.dimensions.js'></script>
 <script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocomplete.js'></script>
 <script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocompletefb.js'></script>
+<script type='text/javascript' src='../js/jquery.ui.core.js'></script>
+<script type='text/javascript' src='../js/jquery.keyboard-a11y.js'></script>
+<script type='text/javascript' src='../js/jquery.tooltip.js'></script>
+<script type='text/javascript' src='../js/fluid/Fluid.js'></script>
+<script type='text/javascript' src='../js/fluid/InlineEdit.js'></script>
 <script type="text/javascript" src="../js/sakai.group.manager.js"></script>
 </head>
 <body>
@@ -53,26 +59,23 @@
 	<tr>
         <td style="width:70%" valign="top">
             <!-- Left Panel -->
-             <div class="group-body">
+             <div class="group-body editActualGroupWrapper">
                 
-                <h3 class="">
+                <h3>
                     <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
                     <span class="navigate">   >  </span>
-                    <span id="group-title"> Title </span>
-                    <a id="nav-edit-actual-group" href="#edit-actual-group" class="nav-edit-actual-group">
-                        <img border="0" alt="Edit" title="Edit this group's title or description" src="/library/image/silk/pencil.png" />
-                    </a>
+                    <span id="group-title" class="editActualGroup"> Title </span>
                 </h3>
-
-                <p>
-                    <span id="group-description-title" style="font-weight:bold;">Description: </span>
-                    <span id="group-description"></span>
-                </p>
-                 
-                <span class="instruction">To edit the membership of this group, search for participants or
+                
+                <div class="editActualGroupParent">
+                    <h4 id="group-description-title" style="font-weight:bold;">Description: </h4>
+                    <span id="group-description" class="editActualGroup"></span>
+                </div>
+                <br />
+                <p class="instruction infoItem">To edit the membership of this group, search for participants or
                 paste a list of user names into the boxes provided. Then select
                 Add, Remove or Replace and click Update to make the required changes.
-                </span>
+                </p>
                 <div class="autocompleteParent">
                     <div class="searchTitle">
                         Search for site participants
@@ -143,7 +146,7 @@
     <h3 class="noUnderline">
         <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
         <span class="navigate">   >  </span>
-        <span id="edit-form-title"> Create New Group </span>
+        <span> Create New Group </span>
     </h3>
     <div class="shorttext">
         <label for="form-group-title" style="float: none; clear: both; margin: 0pt; padding: 0pt;">
@@ -158,11 +161,11 @@
     <label for="form-group-description">Description</label>
 
     <div style="width: 70%;">
-        <textarea id="form-group-description" rows="10" cols="30"></textarea>
+        <textarea id="form-group-description" rows="7" cols="60"></textarea>
     </div>
     
     <div class="act doGroupAction">
-        <input type="button" id="doGroupAction" value="Update" class="active"/>
+        <input type="button" id="doGroupAction" value="Save and add members" class="active"/>
         <input type="button" class="nav-list" value="Back" />
     </div>
 </div>

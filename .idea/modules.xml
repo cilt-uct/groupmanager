@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/group-manager.iml" filepath="$PROJECT_DIR$/group-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/group-manager.iml" filepath="$PROJECT_DIR$/../../trunk-04022009/group-manager/group-manager.iml" />
     </modules>
   </component>
 </project>

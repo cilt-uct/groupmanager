@@ -1,4 +1,4 @@
-var groupHelper = function($){
+var groupHelper = function($, fluid){
 
     var //configurable vars
             debug = false,
@@ -55,6 +55,7 @@ var groupHelper = function($){
             ajaxCustomErrorMsg = null,
             blankREG = /^\s*$/,   //Reg Exp. to test for an empty string
             rowTemplateForListRow = {},
+            inlineEditors = [];
 
             //get site membership and group info into object
             _getSiteUsersAndGroups = function(){
@@ -670,6 +671,7 @@ var groupHelper = function($){
 
             //bind group edit action
             _bindEditGroupLink = function(){
+
                 var thatRow = $(this).parents("tr[name=g-r]");
                 if ( typeof thatRow === "undefined" ){
                     alert("An internal error occured, the view will be refreshed.");
@@ -678,6 +680,14 @@ var groupHelper = function($){
                 var groupId = thatRow.find("input[name=g-id]").val(),
                 groupTitle = thatRow.find("td[name=g-n] a").text(),
                 groupDescription = thatRow.find("td[name=g-d]").text();
+
+                if (groupDescription.length > 0){
+                    for ( var g in siteGroups){
+                        if ( groupId === siteGroups[g].id){
+                            groupDescription = siteGroups[g].description;
+                        }
+                    }
+                }
 
                 currentGroup.groupId = groupId;
                 currentGroup.groupTitle = groupTitle;
@@ -752,8 +762,18 @@ var groupHelper = function($){
                  //change page title to grp title
                  $("#group-title").text(groupTitle);
 
+                //init inline edit only once
+                if ( inlineEditors.length === 0 ){
+                    _initInlineEdit();
+                }
+
+                _initInlineEdit.reset();
+
+                $("#group-description").parent().removeClass("addItemInline");
+
                  if(groupDescription.length === 0){
-                    $("span[id*=group-description]").hide();
+                    $("span#group-description-title").hide();
+                    $("#group-description").parent().addClass("addItemInline");
                  }else{
                     $("span[id*=group-description]").show();
                      $("#group-description").text(groupDescription);
@@ -765,21 +785,8 @@ var groupHelper = function($){
 
             },
 
-            //highlight the given row then fade out the style
-            _event_highlightRow = function(thatRow){
-                if ( typeof thatRow !== "undefined"){
-                    thatRow.addClass("selectedSelected");
-                    setTimeout(function(){
-                        thatRow.fadeOut(10, function(){
-                            thatRow.removeClass("selectedSelected");
-                            thatRow.fadeIn(80);
-                        });
-                    }, 1000);
-                }
-            },
-
             //handle edit group title/description form
-            _event_editActualGroup = function(_isNewGroup){
+            _event_editActualGroup = function(){
                 //clear any selected users/input
                 $("#errors").hide();
                 $("input.acfb-input").val("");
@@ -787,20 +794,11 @@ var groupHelper = function($){
                 $("#group-current-members-autocomplete li").remove();
                 currentGroup.selectedMembers = [];
 
-                var isNewGroup = ( typeof _isNewGroup !== "undefined" && _isNewGroup),
-                btnText = isNewGroup ? "Save and add members" : "Update",
-                buttonDo = $("#doGroupAction"),
+                var buttonDo = $("#doGroupAction"),
                 buttonsParent = $(".doGroupAction");
-                if ( isNewGroup ){
-                    $("#nav-create-group").hide();
-                    $("#form-group-title").val("");
-                    $("#form-group-description").val("");
-                    $("#edit-form-title").text("Create New Group");
-                }else{
-                    $("#form-group-title").val(currentGroup.groupTitle);
-                    $("#form-group-description").val(currentGroup.groupDescription);
-                    $("#edit-form-title").text("Edit group: " + currentGroup.groupTitle);
-                }
+                $("#nav-create-group").hide();
+                $("#form-group-title").val("");
+                $("#form-group-description").val("");
 
                 $("#groups").hide();
                 $("#group").hide();
@@ -809,14 +807,11 @@ var groupHelper = function($){
                 buttonsParent.find("input").attr("disabled", "");
                 $("img.img-loading").remove();
 
-                buttonDo.val(btnText);
-
                 _event_resizeFrame();
 
                 buttonDo.unbind("click").bind("click", function(){
-                    var url = "/direct/site/" + siteId + "/group",
-                    params = {},
-                    domTitle = $("#form-group-title"),
+
+                    var domTitle = $("#form-group-title"),
                     domDescription = $("#form-group-description");
                     //validate title
                     if( blankREG.test( domTitle.val() )){
@@ -832,80 +827,223 @@ var groupHelper = function($){
                         domTitle.parent().removeClass("alertMessage");
                     }
 
-                    params = { "groupTitle":domTitle.val(), "groupDescription":domDescription.val()};
-                    $.ajax({
-                        url: ( isNewGroup ? url : url + "/" + currentGroup.groupId ) + ".json?" + $.param(params),
-                        type:  isNewGroup ? "PUT" : "POST",
-                        dataType: "json",
-                        beforeSend: function(){
-                            buttonsParent.find("input").attr("disabled", "disabled");
-                            buttonsParent.append(images.loadingImage);
-                        },
-                        success: function(group){
-                            //add/update group properties in memory
-                            currentGroup.groupId = group.id;
-                            currentGroup.groupTitle = group.title;
-                            currentGroup.groupDescription = group.description;
-                            //clear current group members before population
-                            currentGroup.selectedMembers = [];
-                            currentGroup.members = [];
-
-                            if ( group.users !== null || group.users.length > 0){
-                                for (var n in group.users){
-                                  var memberUserId = group.users[n],
-                                  member = {
-                                      "userId": memberUserId,     //Uuid
-                                      "userDisplayId": null, //memberFull.userDisplayId, eg Staffnumber will populate later
-                                      "userSortName": null //memberFull.userSortName  will populate later
-                                  };
-                                  currentGroup.members.push( member );
-                                }
-                             }
-
-                            if (! isNewGroup ){
-                                for ( var i in siteGroups ){
-                                    if ( siteGroups[i].id === currentGroup.groupId ){
-                                        siteGroups[i].title = currentGroup.groupTitle;
-                                        siteGroups[i].description = currentGroup.groupDescription;
-                                        siteGroups[i].members = currentGroup.members;
-                                    }
-                                }
-                                //sort and refresh list table
-                                _event_showBindTableGroups();
-                                $(".nav-list").click();
-                                $("#nav-create-group").show();
-                                _event_highlightRow($("tr[id=groupRow:" + group.id + "]"));
-                            }else{
-                                //new item
-                                var simpleGroup = {
-                                    "id": currentGroup.groupId,
-                                    "title": currentGroup.groupTitle,
-                                    "description": currentGroup.groupDescription
-                                };
-                                siteGroups.push(simpleGroup);
-
-                                //sort and refresh list table
-                                _event_showBindTableGroups();
-                                //navigate to group edit membership view
-                                $("#groups").hide();
-                                $("#edit-form").hide();
-                                $("#edit-form input[type=text]").val("");
-                                $("#edit-form textarea").val("");
-                                $("div.group-list-body").hide();
-                                $("tr[id=groupRow:" + currentGroup.groupId + "] td[name=g-n] a").parents(":hidden").show();
-                                $("tr[id=groupRow:" + currentGroup.groupId + "] td[name=g-n] a").click();
-                                //clear any selected users/input
-                                $("input.acfb-input").val("");
-                                $("#group-members-paste").val("");
-                                $("#group-current-members-autocomplete li").remove();
-                                currentGroup.selectedMembers = [];
-                                currentGroup.members = [];
-                            }
-                            _event_resizeFrame();
-                        }
-                    });
+                    var currentGroupCopy = {
+                        groupId: null,
+                        groupTitle: domTitle.val(),
+                        groupDescription: domDescription.val()
+                    },
+                    fnBeforeSend = function(){
+                        buttonsParent.find("input").attr("disabled", "disabled");
+                        buttonsParent.append(images.loadingImage);
+                    };
+                    _doSaveActualGroup(currentGroupCopy, fnBeforeSend, undefined);
 
                 });
+            },
+    
+            _doSaveActualGroup = function(currentGroupCopy, fnBeforeSend, fnAfterSend){
+                var url = "/direct/site/" + siteId + "/group",
+                params = { "groupTitle": currentGroupCopy.groupTitle, "groupDescription": currentGroupCopy.groupDescription === null ? "" : currentGroupCopy.groupDescription},
+                isNewGroup = currentGroupCopy.groupId === null;
+                $.ajax({
+                    url: ( isNewGroup ? url : url + "/" + currentGroup.groupId ) + ".json?" + $.param(params),
+                    type:  isNewGroup ? "PUT" : "POST",
+                    dataType: "json",
+                    beforeSend: typeof fnBeforeSend !== "undefined" ? fnBeforeSend : function(){},
+                    success: function(group){
+                        //add/update group properties in memory
+                        currentGroup.groupId = group.id;
+                        currentGroup.groupTitle = group.title;
+                        currentGroup.groupDescription = group.description;
+                        //clear current group members before population
+                        currentGroup.selectedMembers = [];
+                        currentGroup.members = [];
+
+                        if ( group.users !== null || group.users.length > 0){
+                            for (var n in group.users){
+                              var memberUserId = group.users[n],
+                              member = {
+                                  "userId": memberUserId,     //Uuid
+                                  "userDisplayId": null, //memberFull.userDisplayId, eg Staffnumber will populate later
+                                  "userSortName": null //memberFull.userSortName  will populate later
+                              };
+                              currentGroup.members.push( member );
+                            }
+                         }
+
+                        if (! isNewGroup ){
+                            for ( var i in siteGroups ){
+                                if ( siteGroups[i].id === currentGroup.groupId ){
+                                    siteGroups[i].title = currentGroup.groupTitle;
+                                    siteGroups[i].description = currentGroup.groupDescription;
+                                    siteGroups[i].members = currentGroup.members;
+                                }
+                            }
+                            //sort and refresh list table
+                            _event_showBindTableGroups();
+                        }else{
+                            //new item
+                            var simpleGroup = {
+                                "id": currentGroup.groupId,
+                                "title": currentGroup.groupTitle,
+                                "description": currentGroup.groupDescription
+                            };
+                            siteGroups.push(simpleGroup);
+
+                            //sort and refresh list table
+                            _event_showBindTableGroups();
+                            //navigate to group edit membership view
+                            $("#groups").hide();
+                            $("#edit-form").hide();
+                            $("#edit-form input[type=text]").val("");
+                            $("#edit-form textarea").val("");
+                            $("div.group-list-body").hide();
+                            $("tr[id=groupRow:" + currentGroup.groupId + "] td[name=g-n] a").parents(":hidden").show();
+                            $("tr[id=groupRow:" + currentGroup.groupId + "] td[name=g-n] a").click();
+                            //clear any selected users/input
+                            $("input.acfb-input").val("");
+                            $("#group-members-paste").val("");
+                            $("#group-current-members-autocomplete li").remove();
+                            currentGroup.selectedMembers = [];
+                            currentGroup.members = [];
+                        }
+                        if (typeof fnAfterSend !== "undefined"){
+                            fnAfterSend();       
+                        }
+                        _event_resizeFrame();
+                    }
+                });
+            },
+
+            // Initialize all simple inline edit components present on the inline-edit
+            _initInlineEdit = function () {
+                inlineEditors = fluid.inlineEdits(".editActualGroupWrapper", {
+                    selectors: {
+                        text: ".editActualGroup",
+                        editables : "div.editActualGroupParent, h3"
+                    },/*
+                    componentDecorators: {
+                        type: "fluid.undoDecorator"
+                    },*/
+                    submitOnEnter: "textarea",
+                    useTooltip: true,
+                    tooltipText: "Click to edit.",
+                    tooltipDelay: 500,
+                    defaultViewText: "Click to add a description",
+                    applyEditPadding: false,
+
+                    editModeRenderer: function (that) {
+                        if (that.editContainer.length > 0 && that.editField.length > 0) {
+                            return {
+                                container: that.editContainer,
+                                field: that.editField
+                            };
+                        }
+                        // Template strings.
+                        var editModeTemplate= "<span><input type='text' class='flc-inlineEdit-edit fl-inlineEdit-edit'/></span>",
+                        editModeTemplateType = "input";
+
+                        if (that.viewEl[0].id === "group-description"){
+                            editModeTemplate = "<span><textarea rows='7' cols='60' class='flc-inlineEdit-edit fl-inlineEdit-edit' /></span>";
+                            editModeTemplateType = "textarea";
+                        }
+
+                        // Create the edit container and pull out the textfield.
+                        var editContainer = $(editModeTemplate);
+                        var editField = $(editModeTemplateType, editContainer);
+
+                        var componentContainerId = that.container.attr("id");
+                        // Give the container and textfield a reasonable set of ids if necessary.
+                        if (componentContainerId) {
+                            var editContainerId = componentContainerId + "-edit-container";
+                            var editFieldId = componentContainerId + "-edit";
+                            editContainer.attr("id", editContainerId);
+                            editField.attr("id", editFieldId);
+                        }
+
+                        // Inject it into the DOM.
+                        that.viewEl.after(editContainer);
+
+                        // Package up the container and field for the component.
+                        return {
+                            container: editContainer,
+                            field: editField
+                        };
+                    },
+
+                    listeners: {
+                        onBeginEdit: function(){
+                            //remove the addItemInline style
+                            $("#group-description").parent().removeClass("addItemInline");
+                        },
+                        afterBeginEdit: function(){},
+                        modelChanged: function(){},
+                        afterInitEdit: function(){},
+                        onFinishEdit: function(newValue, oldValue, editNode, viewNode){
+                            //console.log("onFinishEdit");
+                            //console.log(newValue, oldValue, editNode, viewNode);
+                            var currentGroupCopy = currentGroup,
+                            fnBeforeSend = function(){
+                              editNode.style.disabled = "disabled";
+                              $(images.loadingImage).insertBefore($(editNode));
+                            },
+                            fnAfterSend = function(){
+                                editNode.style.disabled = false;
+                                $(editNode).parent().find("img.img-loading").remove();
+                            };
+
+                            if (viewNode.id === "group-description"){
+                                if( blankREG.test( newValue )){
+                                    currentGroupCopy.groupDescription = "";
+                                    //$(viewNode).text("");
+                                }else if ( newValue !== oldValue){
+                                    currentGroupCopy.groupDescription = newValue;
+                                }
+                                if ( blankREG.test( newValue ) && newValue === oldValue) {
+                                    $("#group-description").parent().addClass("addItemInline");
+                                }else{
+                                    _doSaveActualGroup(currentGroupCopy, fnBeforeSend, function(){
+                                        fnAfterSend();
+                                        if( currentGroupCopy.groupDescription === "" || currentGroupCopy.groupDescription === null){
+                                            $("#group-description").parent().addClass("addItemInline");
+                                        }
+                                    });
+                                }
+                            }else
+                            if (viewNode.id === "group-title"){
+                                if( blankREG.test( newValue )){
+                                    ///editNode.addClassName("alertMessage");
+                                    alert("You need to specify the group title.");
+                                }else if ( newValue.length > 99){
+                                    //Service restricts title from being > 99 chars
+                                    ///editNode.addClassName("alertMessage");
+                                    alert("Title length cannot exceed 99 characters. Please provide a shorter title.");
+                                }else if ( newValue !== oldValue){
+                                    currentGroupCopy.groupTitle = newValue;
+                                    _doSaveActualGroup(currentGroupCopy, fnBeforeSend, fnAfterSend);
+                                }
+                            }
+                        },
+                        afterFinishEdit: function(newValue, oldValue, editNode, viewNode){
+                            if (blankREG.test( newValue ) && viewNode.id === "group-title"){
+                                _initInlineEdit.reset();
+                                $(viewNode).text(currentGroup.groupTitle);
+                            }
+                        }
+                    }
+
+                });
+            },
+
+            _initInlineEdit.reset = function(){
+                //reset the inline editors
+                for ( var ed in inlineEditors){
+                    var fluid_that = inlineEditors[ed];
+                    if ( fluid_that.viewEl[0].id === "group-description"){
+                        fluid_that.model.value = currentGroup.groupDescription.length === 0 || currentGroup.groupDescription.length === null ? "" : currentGroup.groupDescription;
+                    }
+                    fluid_that.refreshView();
+                }
             },
 
             _fixGroupDescriptionLength = function(description){
@@ -991,18 +1129,17 @@ var groupHelper = function($){
                     _getSiteUsersAndGroups();
 
                     //Navigation
-                    $("#nav-create-group").unbind("click").bind("click", function(){
-                        _event_editActualGroup(true);
-                    });
+                    $("#nav-create-group").unbind("click").bind("click", _event_editActualGroup);
+
                     $("#nav-edit-actual-group").unbind("click").bind("click", function(){
                         if(currentGroup.selectedMembers.length > 0 || $("#group-members-paste").val().length > 0 || $("#group-current-members-autocomplete li").length > 0){
                             if( confirm("You have made changes to this page. Are you sure you want to proceed without saving?") ){
-                                _event_editActualGroup(false);
+                                _event_editActualGroup();
                             }else{
                                 return false;
                             }
                         }else{
-                            _event_editActualGroup(false);
+                            _event_editActualGroup();
                         }
                     });
 
@@ -1074,6 +1211,7 @@ var groupHelper = function($){
                     $(".searchBoxParent").unbind("click").bind("click", function(){
                         $("input.acfb-input").focus();
                     });
+
                 }catch(error){
                     if (debug){
                         throw error;
@@ -1101,7 +1239,7 @@ var groupHelper = function($){
                 _event_resizeFrame();
             }
     };
-}(jQuery);
+}(jQuery, fluid);
 
 //acivate groupHelper
 $(document).ready(function() {

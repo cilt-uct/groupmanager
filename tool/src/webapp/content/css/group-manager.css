@@ -25,6 +25,13 @@
     background:transparent url(/library/image/silk/add.png) no-repeat scroll left center;
     padding-left:1.5em;
 }
+.addItemInline {
+    background:transparent url(/library/image/silk/add.png) no-repeat scroll left bottom;
+    padding-left:1.5em;
+}
+.addItemInline h4{
+    margin-left:-20px;
+}
 
 .noUnderline a:visited{
     text-decoration:none !important;
@@ -41,6 +48,11 @@
 .navigate {
     font-size:0.9em;
     font-weight:normal;
+}
+
+.infoItem {
+background:url("/library/image/sakai/information.png") no-repeat scroll left top transparent;
+padding-left:1.5em;
 }
 
 
