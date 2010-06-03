@@ -17,16 +17,16 @@
 </head>
 <body>
 <div class="portletBody">
-<div class="navIntraTool">
-    <a id="nav-home" title="Group List" href="#home" class="nav-list" style="display:none;">Groups List</a>
-    <a id="nav-create-group" title="Create New Group" href="#create">Create New Group</a>
-</div>
-
+<p />
 <div id="groups">
 
 <div class="group-list-body">
 
-<h3 id="groups-selector-title">Group List <img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Fetching groups..." title="Fetching groups..."/> </h3>
+<h3 class="addItem noUnderline">
+    <a id="nav-create-group" title="Create a new group" href="#create">Create a new group</a>
+</h3>
+    
+<h3 id="groups-selector-title">Groups <img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Fetching groups..." title="Fetching groups..."/> </h3>
 <table id="groups-selector" cellspacing="0" border="0" class="listHier lines nolines centerLines" style="display:none;">
 	<thead>
 		<tr>
@@ -47,7 +47,6 @@
 	</tbody>
 </table>
 </div>
-
     
 <div id="group" style="display: none">
 <table cellspacing="6" border="0" style="width:100%">
@@ -55,8 +54,10 @@
         <td style="width:70%" valign="top">
             <!-- Left Panel -->
              <div class="group-body">
-                 
-                <h3>
+                
+                <h3 class="">
+                    <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
+                    <span class="navigate">   >  </span>
                     <span id="group-title"> Title </span>
                     <a id="nav-edit-actual-group" href="#edit-actual-group" class="nav-edit-actual-group">
                         <img border="0" alt="Edit" title="Edit this group's title or description" src="/library/image/silk/pencil.png" />
@@ -91,11 +92,11 @@
                 </div>
 
                 <div class="act">
-                    <div id="action-group-success" class="success" style="display:none;">
+                    <div id="action-group-success" class="success noUnderline" style="display:none;">
                         <span>
 
                         </span>
-                        <a href="#undo" class="img-undo" title="Undo">
+                        <a href="#undo" class="img-undo navigate" title="Undo">
                             <img alt="Undo" src="/sakai-groupmanager-tool/content/images/arrow_undo.png"/>
                             Undo
                         </a>
@@ -138,7 +139,10 @@
 <div id="errors" class="alertMessage" style="display: none;"></div>
 
 <div id="edit-form" style="display:none;">
-    <h3>
+
+    <h3 class="noUnderline">
+        <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
+        <span class="navigate">   >  </span>
         <span id="edit-form-title"> Create New Group </span>
     </h3>
     <div class="shorttext">

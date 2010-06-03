@@ -157,7 +157,6 @@ var groupHelper = function($){
             },
 
             _event_showBindTableGroups = function(){
-                $("#nav-home").hide();
                 // now we have the groups sort
                 siteGroups.sort(_sortGroupsComparator('title', false, function(a){return a.toUpperCase();}));
                 var table =  $("#groups-selector");
@@ -671,7 +670,6 @@ var groupHelper = function($){
 
             //bind group edit action
             _bindEditGroupLink = function(){
-                $("#nav-home").show();
                 var thatRow = $(this).parents("tr[name=g-r]");
                 if ( typeof thatRow === "undefined" ){
                     alert("An internal error occured, the view will be refreshed.");
@@ -782,8 +780,6 @@ var groupHelper = function($){
 
             //handle edit group title/description form
             _event_editActualGroup = function(_isNewGroup){
-                //show home link
-                $("#nav-home").show();
                 //clear any selected users/input
                 $("#errors").hide();
                 $("input.acfb-input").val("");
@@ -1047,7 +1043,6 @@ var groupHelper = function($){
                             currentGroup.selectedMembers = [];
 
                             //show list n hide whatever is visible
-                            $("#nav-home").hide();
                             $("#nav-create-group").show();
                             $("#group").hide();
                             $("#groups").show();

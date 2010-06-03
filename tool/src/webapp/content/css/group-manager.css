@@ -21,3 +21,26 @@
     width: 95%;
 }
 
+.addItem {
+    background:transparent url(/library/image/silk/add.png) no-repeat scroll left center;
+    padding-left:1.5em;
+}
+
+.noUnderline a:visited{
+    text-decoration:none !important;
+}
+
+.noUnderline a:link{
+    text-decoration:none !important;
+}
+
+.noUnderline a:active{
+    text-decoration:none !important;
+}
+
+.navigate {
+    font-size:0.9em;
+    font-weight:normal;
+}
+
+
