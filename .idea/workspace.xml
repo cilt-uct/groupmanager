@@ -2,25 +2,25 @@
 <project version="4">
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="6f69b74e-ca51-4096-a488-4ff43b0abd9e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/Undo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/jquery.ui.core.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/templates/group-manager.html" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/templates/group-manager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/Fluid.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/jquery.tooltip.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/jquery.keyboard-a11y.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/content.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/modules.xml" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid/InlineEdit.css" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid/InlineEdit.css" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path="group-manager.iws" />
@@ -80,19 +80,19 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="group-manager.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="group-manager.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/templates/group-manager.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="94" selection-start="3242" selection-end="3242" vertical-scroll-proportion="0.4048843">
+            <state line="65" column="57" selection-start="3356" selection-end="3356" vertical-scroll-proportion="-5.3333335">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="974" column="64" selection-start="50813" selection-end="50813" vertical-scroll-proportion="42.423077">
+            <state line="924" column="0" selection-start="48231" selection-end="48231" vertical-scroll-proportion="0.37966537">
               <folding />
             </state>
           </provider>
@@ -119,7 +119,7 @@
       <file leaf-file-name="group-manager.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="16" selection-start="1177" selection-end="1177" vertical-scroll-proportion="0.0">
+            <state line="26" column="1" selection-start="628" selection-end="628" vertical-scroll-proportion="-9.0">
               <folding />
             </state>
           </provider>
@@ -128,7 +128,7 @@
       <file leaf-file-name="InlineEdit.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="54" selection-start="0" selection-end="12377" vertical-scroll-proportion="-0.0">
+            <state line="558" column="29" selection-start="20068" selection-end="20068" vertical-scroll-proportion="-11.538462">
               <folding />
             </state>
           </provider>
@@ -161,8 +161,8 @@
         <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid/InlineEdit.css" />
         <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js" />
         <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css" />
-        <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" />
         <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/templates/group-manager.html" />
+        <option value="$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js" />
       </list>
     </option>
   </component>
@@ -206,14 +206,7 @@
       <pane id="Scope" />
       <pane id="Favorites" />
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group-manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="PackagesPane" />
     </panes>
@@ -369,7 +362,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1781401" sideWeight="0.5177305" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2536232" sideWeight="0.90661937" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2536232" sideWeight="0.90661937" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08510638" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -447,16 +440,16 @@
         <state line="149" column="13" selection-start="7390" selection-end="7390" vertical-scroll-proportion="0.23404256" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css">
+    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid/InlineEdit.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="16" selection-start="1177" selection-end="1177" vertical-scroll-proportion="0.0">
+        <state line="2" column="37" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/fluid/InlineEdit.css">
+    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/Undo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="37" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -470,28 +463,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/InlineEdit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="54" selection-start="0" selection-end="12377" vertical-scroll-proportion="0.0">
+        <state line="558" column="29" selection-start="20068" selection-end="20068" vertical-scroll-proportion="-11.538462">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/fluid/Undo.js">
+    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/css/group-manager.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="974" column="64" selection-start="50813" selection-end="50813" vertical-scroll-proportion="42.423077">
+        <state line="26" column="1" selection-start="628" selection-end="628" vertical-scroll-proportion="-9.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/templates/group-manager.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="94" selection-start="3242" selection-end="3242" vertical-scroll-proportion="0.4048843">
+        <state line="65" column="57" selection-start="3356" selection-end="3356" vertical-scroll-proportion="-5.3333335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../trunk-04022009/group-manager/tool/src/webapp/content/js/sakai.group.manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="924" column="0" selection-start="48231" selection-end="48231" vertical-scroll-proportion="0.37966537">
           <folding />
         </state>
       </provider>

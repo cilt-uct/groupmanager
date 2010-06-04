@@ -769,11 +769,8 @@ var groupHelper = function($, fluid){
 
                 _initInlineEdit.reset();
 
-                $("#group-description").parent().removeClass("addItemInline");
-
                  if(groupDescription.length === 0){
                     $("span#group-description-title").hide();
-                    $("#group-description").parent().addClass("addItemInline");
                  }else{
                     $("span[id*=group-description]").show();
                      $("#group-description").text(groupDescription);
@@ -925,7 +922,6 @@ var groupHelper = function($, fluid){
                     componentDecorators: {
                         type: "fluid.undoDecorator"
                     },*/
-                    submitOnEnter: "textarea",
                     useTooltip: true,
                     tooltipText: "Click to edit.",
                     tooltipDelay: 500,
@@ -972,18 +968,17 @@ var groupHelper = function($, fluid){
                     },
 
                     listeners: {
-                        onBeginEdit: function(){
-                            //remove the addItemInline style
-                            if ($(".addItemInline textarea:visible").length > 0){
-                                $("#group-description").parent().removeClass("addItemInline");
+                        afterBeginEdit: function(){
+                            if ($("#group-description-title").parent().find("textarea:visible").length > 0){
+                                $("#group-description-title").css("display", "block");
                             }
                             _event_resizeFrame();
                         },
-                        afterBeginEdit: function(){},
-                        onFinishEdit: function(){},
-                        afterInitEdit: function(){},
-                        modelChanged: function(newValue, oldValue, editNode, viewNode){
-                            //console.log("onFinishEdit");
+                        //onBeginEdit: function(){},
+                        //modelChanged: function(){},
+                        //afterInitEdit: function(){},
+                        onFinishEdit: function(newValue, oldValue, editNode, viewNode){
+                            //console.log("modelChanged");
                             //console.log(newValue, oldValue, editNode, viewNode);
                             var currentGroupCopy = currentGroup,
                             fnBeforeSend = function(){
@@ -1002,16 +997,9 @@ var groupHelper = function($, fluid){
                                 }else if ( newValue !== oldValue){
                                     currentGroupCopy.groupDescription = newValue;
                                 }
-                                if ( blankREG.test( newValue ) && newValue === oldValue) {
-                                    $("#group-description").parent().addClass("addItemInline");
-                                }else{
-                                    _doSaveActualGroup(currentGroupCopy, fnBeforeSend, function(){
-                                        fnAfterSend();
-                                        if( currentGroupCopy.groupDescription === "" || currentGroupCopy.groupDescription === null){
-                                            $("#group-description").parent().addClass("addItemInline");
-                                        }
-                                    });
-                                }
+                                _doSaveActualGroup(currentGroupCopy, fnBeforeSend, function(){
+                                    fnAfterSend();
+                                });
                             }else
                             if (viewNode.id === "group-title"){
                                 if( blankREG.test( newValue )){
@@ -1031,6 +1019,8 @@ var groupHelper = function($, fluid){
                             if (blankREG.test( newValue ) && viewNode.id === "group-title"){
                                 _initInlineEdit.reset();
                                 $(viewNode).text(currentGroup.groupTitle);
+                            }else{
+                                $("#group-description-title").css("display", "");
                             }
                             _event_resizeFrame();
                         }
@@ -1045,6 +1035,8 @@ var groupHelper = function($, fluid){
                     var fluid_that = inlineEditors[ed];
                     if ( fluid_that.viewEl[0].id === "group-description"){
                         fluid_that.model.value = currentGroup.groupDescription.length === 0 || currentGroup.groupDescription.length === null ? "" : currentGroup.groupDescription;
+                    }else{
+                        fluid_that.model.value = currentGroup.groupTitle.length === 0 || currentGroup.groupTitle.length === null ? "" : currentGroup.groupTitle;
                     }
                     fluid_that.refreshView();
                 }
