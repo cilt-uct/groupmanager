@@ -974,12 +974,15 @@ var groupHelper = function($, fluid){
                     listeners: {
                         onBeginEdit: function(){
                             //remove the addItemInline style
-                            $("#group-description").parent().removeClass("addItemInline");
+                            if ($(".addItemInline textarea:visible").length > 0){
+                                $("#group-description").parent().removeClass("addItemInline");
+                            }
+                            _event_resizeFrame();
                         },
                         afterBeginEdit: function(){},
-                        modelChanged: function(){},
+                        onFinishEdit: function(){},
                         afterInitEdit: function(){},
-                        onFinishEdit: function(newValue, oldValue, editNode, viewNode){
+                        modelChanged: function(newValue, oldValue, editNode, viewNode){
                             //console.log("onFinishEdit");
                             //console.log(newValue, oldValue, editNode, viewNode);
                             var currentGroupCopy = currentGroup,
@@ -1029,6 +1032,7 @@ var groupHelper = function($, fluid){
                                 _initInlineEdit.reset();
                                 $(viewNode).text(currentGroup.groupTitle);
                             }
+                            _event_resizeFrame();
                         }
                     }
 
