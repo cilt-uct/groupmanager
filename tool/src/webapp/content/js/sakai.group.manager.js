@@ -348,10 +348,11 @@ var groupHelper = function($, fluid){
                     for (var a in tempUserNames ){
                         ///console.info("checking split: %s", tempUserNames[a].split(' ').join(''));
                         ///console.info("checking: %s", tempUserNames[a]);//.split(' ').join(''));
-                        var found = false;
+                        var found = false,
+                        tempUsername = tempUserNames[a].replace(/ /g, "");
                         for( var b in siteMembers ){
                             ////console.info("checking: %s against: %s", tempUserNames[a], siteMembers[b].userDisplayId);//.split(' ').join(''));
-                            if( !found && tempUserNames[a] !== null && tempUserNames[a].toLowerCase() == siteMembers[b].userDisplayId.toLowerCase() ){
+                            if( !found && tempUsername !== null && tempUsername.toLowerCase() == siteMembers[b].userDisplayId.toLowerCase() ){
                                 //member is valid
                                 found = true;
                                 currentGroup.selectedMembers.push(siteMembers[b].userId);
@@ -360,7 +361,7 @@ var groupHelper = function($, fluid){
                         }
                         if (!found){
                             //save member to later remove from paste box array
-                            notFound.push(tempUserNames[a]);
+                            notFound.push(tempUsername);
                         }
                     }
                     ///console.info("currentGroup.selectedMembers length %i: %o", currentGroup.selectedMembers.length, currentGroup.selectedMembers);
