@@ -52,4 +52,8 @@ td {
     vertical-align:top;
 }
 
+.editActualGroupParent textarea {
+    margin-left:5px;
+}
+
 
