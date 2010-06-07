@@ -1018,11 +1018,11 @@ var groupHelper = function($, fluid){
                         },
                         afterFinishEdit: function(newValue, oldValue, editNode, viewNode){
                             if (blankREG.test( newValue ) && viewNode.id === "group-title"){
-                                _initInlineEdit.reset();
                                 $(viewNode).text(currentGroup.groupTitle);
                             }else{
                                 $("#group-description-title").css("display", "");
                             }
+                            _initInlineEdit.reset();
                             _event_resizeFrame();
                         }
                     }

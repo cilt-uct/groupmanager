@@ -63,7 +63,7 @@
       <file leaf-file-name="sakai.group.manager.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="354" column="56" selection-start="19246" selection-end="19246" vertical-scroll-proportion="0.3362391">
+            <state line="995" column="110" selection-start="52114" selection-end="52114" vertical-scroll-proportion="0.11706102">
               <folding />
             </state>
           </provider>
@@ -385,7 +385,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="354" column="56" selection-start="19246" selection-end="19246" vertical-scroll-proportion="0.3362391">
+        <state line="995" column="110" selection-start="52114" selection-end="52114" vertical-scroll-proportion="0.11706102">
           <folding />
         </state>
       </provider>
