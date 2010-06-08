@@ -60,19 +60,37 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="999" column="57" selection-start="52357" selection-end="52357" vertical-scroll-proportion="0.0">
+            <state line="1013" column="53" selection-start="53368" selection-end="53368" vertical-scroll-proportion="0.2960103">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="group-manager.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="group-manager.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="25" column="25" selection-start="517" selection-end="626" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InlineEdit.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="34" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="group-manager.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="49" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.437018">
+            <state line="52" column="32" selection-start="2855" selection-end="2855" vertical-scroll-proportion="-2.08">
               <folding />
             </state>
           </provider>
@@ -94,10 +112,10 @@
         <option value="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.inlineEdit.js" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/js/fluid/Fluid.js" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/js/fluid/InlineEdit.js" />
-        <option value="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css" />
-        <option value="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html" />
+        <option value="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" />
+        <option value="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js" />
       </list>
     </option>
   </component>
@@ -277,6 +295,70 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="group-manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="group-manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="content" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="group-manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="group-manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tool" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="content" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fluid" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -549,16 +631,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="999" column="57" selection-start="52357" selection-end="52357" vertical-scroll-proportion="0.0">
+        <state line="52" column="32" selection-start="2855" selection-end="2855" vertical-scroll-proportion="-2.08">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html">
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="49" selection-start="3457" selection-end="3457" vertical-scroll-proportion="0.437018">
+        <state line="25" column="25" selection-start="517" selection-end="626" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1013" column="53" selection-start="53368" selection-end="53368" vertical-scroll-proportion="0.2960103">
           <folding />
         </state>
       </provider>

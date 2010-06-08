@@ -770,11 +770,8 @@ var groupHelper = function($, fluid){
 
                 _initInlineEdit.reset();
 
-                 if(groupDescription.length === 0){
-                    $("span#group-description-title").hide();
-                 }else{
-                    $("span[id*=group-description]").show();
-                     $("#group-description").text(groupDescription);
+                 if(groupDescription.length > 0){
+                    $("#group-description").text(groupDescription);
                  }
                  //hide groups list view
                  $("div.group-list-body").hide();
@@ -1020,7 +1017,7 @@ var groupHelper = function($, fluid){
                             if (blankREG.test( newValue ) && viewNode.id === "group-title"){
                                 $(viewNode).text(currentGroup.groupTitle);
                             }else{
-                                $("#group-description-title").css("display", "");
+                                $("#group-description-title").css("display", "inline");
                             }
                             _initInlineEdit.reset();
                             _event_resizeFrame();

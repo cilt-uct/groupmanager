@@ -1,3 +1,7 @@
 .fl-inlineEdit-edit{margin:-2px;padding:0;width:80%;}
 .fl-inlineEdit-tooltip{position:absolute;background:#000;border:1px solid #ccc;color: #fff;padding:3px 5px;}
 .fl-inlineEdit-invitation{background:lightyellow;cursor:pointer;}
+.fl-inlineEdit-invitation-text{
+    background:transparent url(/library/image/silk/add.png) no-repeat scroll left center;
+    padding-left:1.5em;
+}
