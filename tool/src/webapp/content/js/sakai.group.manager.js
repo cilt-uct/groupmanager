@@ -1032,9 +1032,9 @@ var groupHelper = function($, fluid){
                 for ( var ed in inlineEditors){
                     var fluid_that = inlineEditors[ed];
                     if ( fluid_that.viewEl[0].id === "group-description"){
-                        fluid_that.model.value = currentGroup.groupDescription.length === 0 || currentGroup.groupDescription.length === null ? "" : currentGroup.groupDescription;
+                        fluid_that.model.value = currentGroup.groupDescription === null || currentGroup.groupDescription.length === 0 ? "" : currentGroup.groupDescription;
                     }else{
-                        fluid_that.model.value = currentGroup.groupTitle.length === 0 || currentGroup.groupTitle.length === null ? "" : currentGroup.groupTitle;
+                        fluid_that.model.value = currentGroup.groupTitle === null || currentGroup.groupTitle.length === 0 ? "" : currentGroup.groupTitle;
                     }
                     fluid_that.refreshView();
                 }
