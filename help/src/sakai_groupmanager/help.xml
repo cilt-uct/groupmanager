@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+   <bean id="adhocGroupManagerOverview" class="org.sakaiproject.component.app.help.model.ResourceBean">
+      <property name="docId"><value>adhocGroupManagerOverview</value></property>
+      <property name="name"><value>Group Manager Overview</value></property>
+      <property name="location"><value>/sakai_groupmanager/overview.html</value></property>
+      <property name="defaultForTool"><value>sakai.groupmanager</value></property>      
+   </bean>
+   
+	<bean id="adhocGroupManagerMembership" class="org.sakaiproject.component.app.help.model.ResourceBean">
+      <property name="docId"><value>adhocGroupManagerMembership</value></property>
+      <property name="name"><value>Managing adhoc group membership</value></property>
+      <property name="location"><value>/sakai_groupmanager/membership.html</value></property>
+   </bean>
+   
+	<bean id="adhocGroupManagerEdit" class="org.sakaiproject.component.app.help.model.ResourceBean">
+      <property name="docId"><value>adhocGroupManagerEdit</value></property>
+      <property name="name"><value>Creating and editing adhoc groups</value></property>
+      <property name="location"><value>/sakai_groupmanager/edit.html</value></property>
+   </bean>
+
+    <bean id="org.sakaiproject.api.app.help.TableOfContents" class="org.sakaiproject.component.app.help.model.TableOfContentsBean">
+      <property name="name"><value>root</value></property>
+      <property name="categories">
+         <list>
+            <bean id="adhocGroupManagerCategory" class="org.sakaiproject.component.app.help.model.CategoryBean">
+               <property name="name"><value>Group Manager</value></property>
+               <property name="resources">
+                  <list>
+                     <ref bean="adhocGroupManagerOverview"/>
+                     <ref bean="adhocGroupManagerEdit" />
+                     <ref bean="adhocGroupManagerMembership" />
+                  </list>
+               </property>
+            </bean>
+           </list>
+         </property>
+       </bean>
+
+</beans>

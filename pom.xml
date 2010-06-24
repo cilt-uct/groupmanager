@@ -28,12 +28,7 @@
             </activation>
             <modules>
                 <module>tool</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>tool</id>
-            <modules>
-                <module>tool</module>
+                <module>help</module>
             </modules>
         </profile>
     </profiles>

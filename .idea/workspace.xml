@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager" verified="true">
     <list default="true" readonly="true" id="6f69b74e-ca51-4096-a488-4ff43b0abd9e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js" afterPath="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" afterPath="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" />
     </list>
     <ignored path="group-manager.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,10 +63,10 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="sakai.group.manager.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1024" column="38" selection-start="53958" selection-end="53958" vertical-scroll-proportion="0.101673104">
+            <state line="1028" column="55" selection-start="53995" selection-end="53995" vertical-scroll-proportion="-5.8076925">
               <folding />
             </state>
           </provider>
@@ -81,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InlineEdit.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="InlineEdit.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="34" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0">
+            <state line="9" column="54" selection-start="399" selection-end="399" vertical-scroll-proportion="0.19804402">
               <folding />
             </state>
           </provider>
@@ -117,8 +117,8 @@
         <option value="$PROJECT_DIR$/tool/src/webapp/content/js/fluid/InlineEdit.js" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html" />
-        <option value="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" />
         <option value="$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js" />
+        <option value="$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css" />
       </list>
     </option>
   </component>
@@ -620,16 +620,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="25" selection-start="517" selection-end="626" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="34" selection-start="376" selection-end="376" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/templates/group-manager.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="52" column="32" selection-start="2855" selection-end="2855" vertical-scroll-proportion="0.0">
@@ -639,7 +629,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/js/sakai.group.manager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1024" column="38" selection-start="53958" selection-end="53958" vertical-scroll-proportion="0.101673104">
+        <state line="1028" column="55" selection-start="53995" selection-end="53995" vertical-scroll-proportion="-5.8076925">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/group-manager.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="25" selection-start="517" selection-end="626" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tool/src/webapp/content/css/fluid/InlineEdit.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="54" selection-start="399" selection-end="399" vertical-scroll-proportion="0.19804402">
           <folding />
         </state>
       </provider>
