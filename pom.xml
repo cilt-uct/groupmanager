@@ -32,9 +32,6 @@
             </modules>
         </profile>
     </profiles>
-    <dependencies>
-
-    </dependencies>
 
     <!-- handles the management of all related dependencies -->
     <dependencyManagement>
@@ -45,8 +42,14 @@
 				<version>1.0.9</version>
 				<scope>provided</scope>				
 			</dependency>
+		<dependency>
+		    <groupId>com.mobilvox.ossi.mojo</groupId>
+		    <artifactId>maven-js-plugin</artifactId>
+		    <version>1.3</version>
+		 </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <!-- ensure master jars can be found -->
     <repositories>
@@ -58,6 +61,12 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+	<repository>
+            <id>mobilvox-maven</id>
+            <name>Mobilvox Maven Repo</name>
+            <layout>default</layout>
+            <url>http://snapshots.repository.codehaus.org</url>
         </repository>
     </repositories>
 
