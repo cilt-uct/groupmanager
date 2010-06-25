@@ -20,18 +20,10 @@
         <relativePath>../master/pom.xml</relativePath>
     </parent>
 
-    <profiles>
-        <profile>
-            <id>full</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>tool</module>
-                <module>help</module>
-            </modules>
-        </profile>
-    </profiles>
+    <modules>
+	<module>tool</module>
+	<module>help</module>
+    </modules>
 
     <!-- handles the management of all related dependencies -->
     <dependencyManagement>
@@ -42,11 +34,6 @@
 				<version>1.0.9</version>
 				<scope>provided</scope>				
 			</dependency>
-		<dependency>
-		    <groupId>com.mobilvox.ossi.mojo</groupId>
-		    <artifactId>maven-js-plugin</artifactId>
-		    <version>1.3</version>
-		 </dependency>
         </dependencies>
     </dependencyManagement>
 
