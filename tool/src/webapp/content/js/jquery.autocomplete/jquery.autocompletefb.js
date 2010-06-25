@@ -51,14 +51,14 @@ jQuery.fn.autoCompletefb = function(options)
 		removeFind : function(o){
 			$(o).unbind('click').parent().remove();
 			$(settings.inputClass,tmp).focus();
-            groupHelper.resizeFrame();
+			sakai.groups.manager.resizeFrame();
 			return false;
 		}
 	}
 	
 	$(settings.foundClass+" img.p").click(function(){
 		acfb.removeFind(this);
-        groupHelper.resizeFrame();
+		sakai.groups.manager.resizeFrame();
         return false;
 	});
 	
@@ -66,7 +66,7 @@ jQuery.fn.autoCompletefb = function(options)
 	$(settings.inputClass,tmp).result(function(e,member,f){
         e.preventDefault();
         //see is user is selected already
-        if( !groupHelper.isMemberSelected(member.userId)) {
+        if( !sakai.groups.manager.isMemberSelected(member.userId)) {
             settings.selectedUserIds.push(member.userId);
             var f = settings.foundClass.replace(/\./,'');
             var v = '<li class="'+f+'" title="'+member.userSortName + ' (' + member.userDisplayId + ')"><span name="'+member.userId+'" class="autocomplete-member" >'+member.userSortName+'</span> <img class="p" src="'+settings.deleteImage+'"/></li>';
@@ -76,7 +76,7 @@ jQuery.fn.autoCompletefb = function(options)
                 acfb.removeFind(this);
                 return false;
             });
-            groupHelper.resizeFrame();
+            sakai.groups.manager.resizeFrame();
         }
         $(settings.inputClass,tmp).val('').focus();
         return false;
