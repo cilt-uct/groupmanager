@@ -96,7 +96,7 @@ var groupHelper = function($, fluid){
                             if( typeof d.ref1 !== "undefined" ){
                                 status = d.ref1.status;
                                 if( status === 200 || status === 201 || status === 204){
-                                     for (var i in d.ref1.data.siteGroups){
+                                     for (var i = 0, il = d.ref1.data.siteGroups.length; i < il; i++) { 
                                           //console.info(personFull);
                                          var groupFull = d.ref1.data.siteGroups[i];
                                          // only use Site Info type groups
@@ -109,7 +109,7 @@ var groupHelper = function($, fluid){
                                               };
 
                                              if ( groupFull.users !== null || groupFull.users.length > 0){
-                                                for (var n in groupFull.users){
+                                                for (var n = 0, nl = groupFull.users.length; n < nl; n++) { 
                                                   var memberUserId = groupFull.users[n],
                                                   member = {
                                                       "userId": memberUserId,     //Uuid
@@ -164,8 +164,7 @@ var groupHelper = function($, fluid){
 
                 //clear any crurrent rows
                 table.find("tr[name=g-r]").remove();
-
-                for ( var i in siteGroups ){
+                for (var i = 0, il = siteGroups.length; i < il; i++) { 
                     var group = siteGroups[i],
                     groupSize = 0,
                     rowTemp = rowTemplateForListRow.clone();
@@ -345,7 +344,7 @@ var groupHelper = function($, fluid){
                 if( pasteBox.length > 0 ){
                     tempUserNames = pasteBox.val().split('\n');
                     ///console.info("array length %i: %o", tempUserNames.length, tempUserNames);//.split(' ').join(''));
-                    for (var a in tempUserNames ){
+                    for (var a = 0, al = tempUserNames.length; a < al; a++) {
                         ///console.info("checking split: %s", tempUserNames[a].split(' ').join(''));
                         ///console.info("checking: %s", tempUserNames[a]);//.split(' ').join(''));
                         var found = false,
@@ -416,7 +415,7 @@ var groupHelper = function($, fluid){
                         "members": []
                     },
                     foundAndUpdated = false;
-                    for (var i in d.membership_collection){
+                    for (var i = 0, il = d.membership_collection.length; i < il; i++) { 
                       var memberFull = d.membership_collection[i],
                       member = {
                           "userId": memberFull.userId,     //Uuid
@@ -426,7 +425,7 @@ var groupHelper = function($, fluid){
                       group.members.push( member );
                     }
 
-                    for ( var i in siteGroupMembers ){
+                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
                         if(groupId === siteGroupMembers[i].groupId ){
                             siteGroupMembers[i].members = group.members;
                             foundAndUpdated = true;
@@ -449,13 +448,13 @@ var groupHelper = function($, fluid){
                 memberDOM = "",
                 displayLimit = 35,
                 tableNumber = $("tr[id=groupRow:"+currentGroup.groupId+"]").find("td[name=g-s]");
-                for ( var i in siteGroupMembers ){
+                for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
                     if(groupId === siteGroupMembers[i].groupId ){
                         members = siteGroupMembers[i].members;
                     }
                 }
                 currentGroup.members = members;
-                for ( var n = 0; n < members.length; n++ ){
+                for (var n = 0, nl = members.length; n < nl; n++) {
                     var m = members[n],
                         memberHTML= "",
                         displayString = m.userSortName + ' (' + m.userDisplayId + ')';
@@ -581,12 +580,12 @@ var groupHelper = function($, fluid){
                                 });
 
                                 //remove user from currentGroup.members and siteGroupMembers
-                                for ( var i in currentGroup.members ){
+                                for (var i = 0, il = currentGroup.length; i < il; i++) { 
                                     if(userId === currentGroup.members[i].userId ){
                                         currentGroup.members.splice(i,1);
                                     }
                                 }
-                                for ( var n in siteGroupMembers ){
+                                for (var n = 0, nl = siteGroupMembers.length; n < nl; n++) {
                                     if(currentGroup.groupId === siteGroupMembers[n].groupId ){
                                         siteGroupMembers[n].members = currentGroup.members;
                                     }
@@ -631,7 +630,7 @@ var groupHelper = function($, fluid){
                                 that.unbind("click").bind("click", _event_removeMember);
                                 //refresh group members list
                                 _updateMembersForGroup(currentGroup.groupId, function(){
-                                    for ( var i in siteGroupMembers ){
+                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
                                         if(currentGroup.groupId === siteGroupMembers[i].groupId ){
                                             currentGroup.members = siteGroupMembers[i].members;
                                         }
@@ -654,7 +653,7 @@ var groupHelper = function($, fluid){
                     $.post("/direct/membership/group/" + currentGroup.groupId, {action: saveActions.update, userIds: backedUpUserIds.toString()},
                             function(){
                                 _updateMembersForGroup(currentGroup.groupId, function(){
-                                    for ( var i in siteGroupMembers ){
+                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
                                         if(currentGroup.groupId === siteGroupMembers[i].groupId ){
                                             currentGroup.members = siteGroupMembers[i].members;
                                         }
@@ -683,7 +682,7 @@ var groupHelper = function($, fluid){
                 groupDescription = thatRow.find("td[name=g-d]").text();
 
                 if (groupDescription.length > 0){
-                    for ( var g in siteGroups){
+                    for (var g = 0, gl = siteGroups.length; g < gl; g++) {
                         if ( groupId === siteGroups[g].id){
                             groupDescription = siteGroups[g].description;
                         }
@@ -699,12 +698,12 @@ var groupHelper = function($, fluid){
 
                 if( groupId !== null ){
                     //populate this groups members' details
-                    for ( var i in siteGroupMembers ){
+                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
                         if (groupId === siteGroupMembers[i].groupId && siteGroupMembers[i].members.length > 0){
                             if ( siteGroupMembers[i].members[0].userDisplayId === null &&  siteGroupMembers[i].members[0].userSortName === null){
                                 //this group's member details have not been populated yet, populate now
-                                for ( var m in siteGroupMembers[i].members){
-                                    for ( var g in siteMembers){
+                                for (var m = 0, ml = siteGroupMembers[i].members.length; m < ml; m++) {
+                                    for (var g = 0, gl = siteMembers.length; g < gl; g++) {
                                         if ( siteMembers[g].userId === siteGroupMembers[i].members[m].userId){
                                             var memberFull = siteMembers[g],
                                             member = {
@@ -855,7 +854,7 @@ var groupHelper = function($, fluid){
                         currentGroup.members = [];
 
                         if ( group.users !== null || group.users.length > 0){
-                            for (var n in group.users){
+                            for (var n = 0, nl = group.length; n < nl; n++) {
                               var memberUserId = group.users[n],
                               member = {
                                   "userId": memberUserId,     //Uuid
@@ -867,7 +866,7 @@ var groupHelper = function($, fluid){
                          }
 
                         if (! isNewGroup ){
-                            for ( var i in siteGroups ){
+                            for (var i = 0, il = siteGroups.length; i < il; i++) { 
                                 if ( siteGroups[i].id === currentGroup.groupId ){
                                     siteGroups[i].title = currentGroup.groupTitle;
                                     siteGroups[i].description = currentGroup.groupDescription;
@@ -1029,7 +1028,7 @@ var groupHelper = function($, fluid){
 
             _initInlineEdit.reset = function(){
                 //reset the inline editors
-                for ( var ed in inlineEditors){
+                for (var ed = 0, edl = inlineEditors.length; ed < edl; ed++) {
                     var fluid_that = inlineEditors[ed];
                     if ( fluid_that.viewEl[0].id === "group-description"){
                         fluid_that.model.value = currentGroup.groupDescription === null || currentGroup.groupDescription.length === 0 ? "" : currentGroup.groupDescription;
@@ -1095,7 +1094,7 @@ var groupHelper = function($, fluid){
                     siteId = $("#siteId").text();
                     //preload icons. Dimensions are not important
                     var preload = new Image();
-                    for (var key in images.src) {
+                    for (var key = 0, keyl = images.src.length; key < keyl; key++) {
                        preload.src = images.src[key];
                     }
                     //ajax globals
@@ -1164,7 +1163,7 @@ var groupHelper = function($, fluid){
 
                     $(".nav-list").unbind("click").bind("click", function(){
                         $("#action-group-success").hide();
-                        var goto = function(){
+                        var gotoFn = function(){
                             //re-select add option
                             $("input[id=action.a]").attr("checked","checked");
                             //clear any selected users/input
@@ -1190,12 +1189,12 @@ var groupHelper = function($, fluid){
                         };
                         if(currentGroup.selectedMembers.length > 0 || $("#group-members-paste").val().length > 0 || $("#group-current-members-autocomplete li").length > 0){
                             if( confirm("You have made changes to this page. Are you sure you want to proceed without saving?") ){
-                                goto();
+                                gotoFn();
                             }else{
                                 return false;
                             }
                         }else{
-                            goto();
+                            gotoFn();
                         }
                         return false;
                     });
