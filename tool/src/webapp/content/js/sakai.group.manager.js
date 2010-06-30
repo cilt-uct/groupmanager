@@ -613,7 +613,7 @@ sakai.groups.manager = function($, fluid){
                                     });
                                 }, afterRemovalTime);
 
-                                that.unbind("click").bind("click", function(){
+                                that.bind("click", function(){
                                     _event_removeMemberUndo(_this, that, parent, fadeoutMember, userId);
                                 });
 
@@ -653,7 +653,7 @@ sakai.groups.manager = function($, fluid){
                         }, 30000);
                         _this.src = thatBackupInfo.src;
                         that.attr("title", thatBackupInfo.title);
-                        that.unbind("click").bind("click", function(){
+                        that.bind("click", function(){
                             _event_removeMemberUndo(_this, that, parent, fadeoutMember,userId);
                         });
                     };
