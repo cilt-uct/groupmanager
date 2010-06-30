@@ -39,7 +39,7 @@ sakai.groups = sakai.groups || {};
 sakai.groups.manager = function($, fluid){
 
     var //configurable vars
-            debug = false,
+            debug = typeof window.console !== "undefined",
             afterRemovalTime = 60000,  //how long is a user name shown after removal to allow undo action? in milisec.
             //images
             images = {
