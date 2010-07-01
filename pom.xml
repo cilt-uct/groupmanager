@@ -96,5 +96,38 @@
                     </releases>
             </pluginRepository>
     </pluginRepositories>
+    
+    <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>release</id>
+      <name>UCT Release Repo</name>
+      <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/releases</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>snapshots</id>
+      <name>UCT snapshot Repo</name>
+      <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/snapshots</url>
+      <layout>default</layout>
+    </snapshotRepository>
+ </distributionManagement>
+    <ciManagement>
+        <system>Continuum</system>
+        <url>http://arabica.cet.uct.ac.za:8080/continuum</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration>
+                    <address>lovemore.nalube@uct.ac.za</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
 
 </project>
