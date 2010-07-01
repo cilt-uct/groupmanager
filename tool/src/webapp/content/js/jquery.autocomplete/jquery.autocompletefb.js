@@ -54,7 +54,7 @@ jQuery.fn.autoCompletefb = function(options)
 			sakai.groups.manager.resizeFrame();
 			return false;
 		}
-	}
+	};
 	
 	$(settings.foundClass+" img.p").click(function(){
 		acfb.removeFind(this);

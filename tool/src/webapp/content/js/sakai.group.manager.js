@@ -61,7 +61,14 @@ sakai.groups.manager = function($, fluid){
 
             //non-configurable vars
             siteId = "",
-            siteMembers = [],
+            //empty constructor for a sakai user
+            User = function(){
+                this.userId = null;
+                this.userDisplayId = null;
+                this.userSortName = null;
+            },
+            siteMembers = {},
+            siteMembersRawJSON = [], //keep
             siteGroups = [],
             siteGroupMembers = [],
             siteHasGroups = true,
@@ -93,7 +100,14 @@ sakai.groups.manager = function($, fluid){
             ajaxCustomErrorMsg = null,
             blankREG = /^\s*$/,   //Reg Exp. to test for an empty string
             rowTemplateForListRow = {},
-            inlineEditors = [];
+            inlineEditors = [],
+
+            _getSiteMember = function(userId){
+                if (typeof userId !== "undefined"){
+                    return siteMembers[userId];
+                }
+                return null;
+            },
 
             //get site membership and group info into object
             _getSiteUsersAndGroups = function(){
@@ -116,14 +130,15 @@ sakai.groups.manager = function($, fluid){
                             if ( typeof d.ref0 !== "undefined" ){
                                 status = d.ref0.status;
                                 if( status === 200 || status === 201 || status === 204 ){
-                                     for(var i in d.ref0.data.membership_collection){
+                                    //backup membership json array so the autocomplete can use it. Autocomplete does not accept objects
+                                    siteMembersRawJSON = d.ref0.data.membership_collection;
+                                    for (var i = 0, il = d.ref0.data.membership_collection.length; i < il; i++) {
                                           var memberFull = d.ref0.data.membership_collection[i],
-                                          member = {
-                                              "userId": memberFull.userId,     //Uuid
-                                              "userDisplayId": memberFull.userDisplayId, //eg Staffnumber
-                                              "userSortName": memberFull.userSortName
-                                          };
-                                          siteMembers.push( member );
+                                          member = new User();
+                                          member.userId = memberFull.userId;
+                                          member.userDisplayId = memberFull.userDisplayId;
+                                          member.userSortName = memberFull.userSortName;
+                                          siteMembers[member.userId] = member;
                                          //console.info("FOUND USRE: %o", member);
                                       }
                                 }else{
@@ -148,13 +163,8 @@ sakai.groups.manager = function($, fluid){
 
                                              if ( groupFull.users !== null || groupFull.users.length > 0){
                                                 for (var n = 0, nl = groupFull.users.length; n < nl; n++) { 
-                                                  var memberUserId = groupFull.users[n],
-                                                  member = {
-                                                      "userId": memberUserId,     //Uuid
-                                                      "userDisplayId": null, //memberFull.userDisplayId, eg Staffnumber will populate later
-                                                      "userSortName": null //memberFull.userSortName  will populate later
-                                                  };
-                                                  group.members.push( member );
+                                                  var memberUserId = groupFull.users[n];
+                                                  group.members.push( memberUserId );
                                                 }
                                              }
                                              siteGroups.push( group );
@@ -197,7 +207,7 @@ sakai.groups.manager = function($, fluid){
 
             _event_showBindTableGroups = function(){
                 // now we have the groups sort
-                siteGroups.sort(_sortGroupsComparator('title', false, function(a){return a.toUpperCase();}));
+                siteGroups.sort(_sortComparator('title', false, function(a){return a.toUpperCase();}));
                 var table =  $("#groups-selector");
 
                 //clear any crurrent rows
@@ -212,7 +222,7 @@ sakai.groups.manager = function($, fluid){
                             .attr("href", "#" + group.title);
                     rowTemp.find("input[name=g-id]").val(group.id);
                     rowTemp.find("td[name=g-d]")
-                            //.attr("title", group.description)
+                            .attr("title", group.description)
                             .text(_fixGroupDescriptionLength(group.description));
 
                     rowTemp.find("td[name=g-s]").text( ( typeof group.members !== "undefined" && group.members.length > 0) ? group.members.length : 0);
@@ -297,6 +307,7 @@ sakai.groups.manager = function($, fluid){
                             $("#group-members-paste").removeClass("alertMessage");
                             return false;
                         }
+                        backedUpUserIds = currentGroup.members;
                         $("#doAction").attr("disabled", "disabled");
                         $("div.doAction").append(images.loadingImage);
                     },
@@ -310,11 +321,6 @@ sakai.groups.manager = function($, fluid){
                         $("input[name=g-id][value="+currentGroup.groupId+"]:hidden").parent().find("td[name=g-s]").append(images.loadingImage);
                         _updateMembersForGroup(currentGroup.groupId, function(){
                             $("#action-group-success").show();
-
-                            backedUpUserIds = [];
-                            for( var u in currentGroup.members){
-                                backedUpUserIds.push(currentGroup.members[u].userId);
-                            }
 
                             _doMembershipDOM(currentGroup.groupId);
                             var membershipDifference = (currentGroup.members.length > backedUpUserIds.length) ? currentGroup.members.length - backedUpUserIds.length : backedUpUserIds.length - currentGroup.members.length;
@@ -454,25 +460,28 @@ sakai.groups.manager = function($, fluid){
                     },
                     foundAndUpdated = false;
                     for (var i = 0, il = d.membership_collection.length; i < il; i++) { 
-                      var memberFull = d.membership_collection[i],
-                      member = {
-                          "userId": memberFull.userId,     //Uuid
-                          "userDisplayId": memberFull.userDisplayId, //eg Staffnumber
-                          "userSortName": memberFull.userSortName
-                      };
-                      group.members.push( member );
+                      var memberFull = d.membership_collection[i];
+                      group.members.push(memberFull.userId);
                     }
 
-                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
+                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) {
                         if(groupId === siteGroupMembers[i].groupId ){
                             siteGroupMembers[i].members = group.members;
                             foundAndUpdated = true;
                         }
                     }
 
+                     for (var i = 0, il = siteGroups.length; i < il; i++) {
+                        if(groupId === siteGroups[i].id ){
+                            siteGroups[i].members = group.members;
+                        }
+                    }
+
                     if (!foundAndUpdated){
                         siteGroupMembers.push( group );
                     }
+
+                     currentGroup.members = group.members;
 
                     if( successFn !== null ){
                         successFn();
@@ -482,36 +491,46 @@ sakai.groups.manager = function($, fluid){
             },
 
             _doMembershipDOM = function(groupId){
-                var members = [],
-                memberDOM = "",
+                var memberDOM = "<i>No members.</i>",
+                users = [],
+                membersCount = typeof currentGroup.members === "undefined" ? 0 : currentGroup.members.length, //avoid unneccessary length lookups
                 displayLimit = 35,
                 tableNumber = $("tr[id=groupRow:"+currentGroup.groupId+"]").find("td[name=g-s]");
-                for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
-                    if(groupId === siteGroupMembers[i].groupId ){
-                        members = siteGroupMembers[i].members;
+
+                if (membersCount > 0){
+                    memberDOM = "";
+                    //get full User profiles in current group,sort and create DOM output
+                    for (var n = 0, nl = currentGroup.members.length; n < nl; n++) {
+                        var user = _getSiteMember(currentGroup.members[n]);
+                        if ( user !== null ){
+                            users.push(user);
+                        }
+                    }
+
+                    //sort usernames
+                    users.sort(_sortComparator('userSortName', false, function(a){return a.toUpperCase();}));
+
+                    for (var n = 0, nl = users.length; n < nl; n++) {
+                        var memberHTML = "",
+                            displayString = users[n].userSortName + ' (' + users[n].userDisplayId + ')';
+                        displayString = displayString.length > displayLimit ? displayString.substring(0,displayLimit) + "..." : displayString;
+                        memberHTML = '<li class="acfb-data" name="'+ users[n].userId +'">' +
+                                 ' <img alt="Remove" title="Remove" src="' + images.src.autocompleteRemoveImage + '" class="p"/>' +
+                                 '<input type="hidden" value="'+users[n].userId+'"/>' +
+                                 ' <span title="'+ users[n].userSortName + ' (' + users[n].userDisplayId + ')" style="white-space:nowrap;"><nobr> ' + displayString + ' </nobr></span></li>';
+                        memberDOM += memberHTML;
                     }
                 }
-                currentGroup.members = members;
-                for (var n = 0, nl = members.length; n < nl; n++) {
-                    var m = members[n],
-                        memberHTML= "",
-                        displayString = m.userSortName + ' (' + m.userDisplayId + ')';
-                    displayString = displayString.length > displayLimit ? displayString.substring(0,displayLimit) + "..." : displayString;
-                    memberHTML = '<li class="acfb-data" name="'+ m.userId +'">' +
-                             ' <img alt="Remove" title="Remove" src="' + images.src.autocompleteRemoveImage + '" class="p"/>' +
-                             '<input type="hidden" value="'+m.userId+'"/>' +
-                             ' <span title="'+ m.userSortName + ' (' + m.userDisplayId + ')" style="white-space:nowrap;"><nobr> ' + displayString + ' </nobr></span></li>';
-                    memberDOM += memberHTML;
-                }
-                $("#members-list").html(memberDOM);
-                $("#members-number").text(members.length);
-                $("#members-number-title").text(members.length === 1 ? ui.groupNumber.titleSingular : ui.groupNumber.titlePlural);
 
-                tableNumber.text(members.length);
+                $("#members-list").html(memberDOM);
+                $("#members-number").text(membersCount);
+                $("#members-number-title").text(membersCount === 1 ? ui.groupNumber.titleSingular : ui.groupNumber.titlePlural);
+
+                tableNumber.text(membersCount);
 
                 $("#members-list img").unbind("click").bind("click", _event_removeMember);
                 //members list filter box
-                if(members.length > 0){
+                if(membersCount > 0){
                     $("[id*=members-filter]").show();
                 }else{
                     $("[id*=members-filter]").hide();
@@ -562,7 +581,7 @@ sakai.groups.manager = function($, fluid){
                         homes.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
             **/
 
-            _sortGroupsComparator = function(field, reverse, primer) {
+            _sortComparator = function(field, reverse, primer) {
                 reverse = (reverse) ? -1 : 1;
                 return function(a, b) {
                     a = a[field];
@@ -618,8 +637,8 @@ sakai.groups.manager = function($, fluid){
                                 });
 
                                 //remove user from currentGroup.members and siteGroupMembers
-                                for (var i = 0, il = currentGroup.length; i < il; i++) { 
-                                    if(userId === currentGroup.members[i].userId ){
+                                for (var i = 0, il = currentGroup.members.length; i < il; i++) {
+                                    if(userId === currentGroup.members[i] ){
                                         currentGroup.members.splice(i,1);
                                     }
                                 }
@@ -646,7 +665,7 @@ sakai.groups.manager = function($, fluid){
                     that.attr("title", "Restoring....");
                     that.unbind("click");
                     _ajaxUndo = function(){
-                        var fadeoutMember = setTimeout( function(){
+                        var fadeoutMember2 = setTimeout( function(){
                             parent.fadeOut(function(){
                                 parent.remove();
                             });
@@ -654,7 +673,7 @@ sakai.groups.manager = function($, fluid){
                         _this.src = thatBackupInfo.src;
                         that.attr("title", thatBackupInfo.title);
                         that.bind("click", function(){
-                            _event_removeMemberUndo(_this, that, parent, fadeoutMember,userId);
+                            _event_removeMemberUndo(_this, that, parent, fadeoutMember2,userId);
                         });
                     };
                     $.post("/direct/membership/group/" + currentGroup.groupId, {action: saveActions.add, userIds: userId},
@@ -731,39 +750,19 @@ sakai.groups.manager = function($, fluid){
                 currentGroup.groupTitle = groupTitle;
                 currentGroup.groupDescription = groupDescription;
                 //clear current group members before population
-                currentGroup.selectedMembers = [];
-                currentGroup.members = [];
-
+                currentGroup.selectedMembers = [];   //keeps user ids
+                currentGroup.members = [];  //keeps user ids
+                                                                
                 if( groupId !== null ){
                     //populate this groups members' details
-                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
-                        if (groupId === siteGroupMembers[i].groupId && siteGroupMembers[i].members.length > 0){
-                            if ( siteGroupMembers[i].members[0].userDisplayId === null &&  siteGroupMembers[i].members[0].userSortName === null){
-                                //this group's member details have not been populated yet, populate now
-                                for (var m = 0, ml = siteGroupMembers[i].members.length; m < ml; m++) {
-                                    for (var g = 0, gl = siteMembers.length; g < gl; g++) {
-                                        if ( siteMembers[g].userId === siteGroupMembers[i].members[m].userId){
-                                            var memberFull = siteMembers[g],
-                                            member = {
-                                                "userId": memberFull.userId,     //Uuid
-                                                "userDisplayId": memberFull.userDisplayId, //eg Staffnumber
-                                                "userSortName": memberFull.userSortName
-                                            };
-                                            siteGroupMembers[i].members[m] = member;
-                                        }
-                                    }
-                                }
-                            }
-                            currentGroup.members = siteGroupMembers[i].members;
+                    for (var i = 0, il = siteGroups.length; i < il; i++) {
+                        if (groupId === siteGroups[i].id){
+                            currentGroup.members = siteGroups[i].members;
                         }
                     }
-
                     //clear member filter box
                     $("#members-filter").val("");
 
-                    _doMembershipDOM(currentGroup.groupId);
-
-                    //attach event listeners to members
                 }
 
                 //show current membership in DOM
@@ -772,7 +771,7 @@ sakai.groups.manager = function($, fluid){
                 if(! initedAutocomplete ){
                     // allow members to be selected using userSortName, userDisplayId only
                     $("#group-current-members-autocomplete").autoCompletefb({
-                            urlLookup  : siteMembers,
+                            urlLookup  : siteMembersRawJSON,
                             acOptions  : {
                                 minChars: 1,
                                 matchContains:  true,
@@ -805,7 +804,7 @@ sakai.groups.manager = function($, fluid){
                     _initInlineEdit();
                 }
 
-                _initInlineEdit.reset();
+                _initInlineEditReset();
 
                  if(groupDescription.length > 0){
                     $("#group-description").text(groupDescription);
@@ -814,6 +813,8 @@ sakai.groups.manager = function($, fluid){
                  $("div.group-list-body").hide();
 
                 _event_resizeFrame();
+
+                _doMembershipDOM(currentGroup.groupId);
 
             },
 
@@ -1056,7 +1057,7 @@ sakai.groups.manager = function($, fluid){
                             }else{
                                 $("#group-description-title").css("display", "inline");
                             }
-                            _initInlineEdit.reset();
+                            _initInlineEditReset();
                             _event_resizeFrame();
                         }
                     }
@@ -1064,7 +1065,7 @@ sakai.groups.manager = function($, fluid){
                 });
             },
 
-            _initInlineEdit.reset = function(){
+            _initInlineEditReset = function(){
                 //reset the inline editors
                 for (var ed = 0, edl = inlineEditors.length; ed < edl; ed++) {
                     var fluid_that = inlineEditors[ed];
@@ -1157,6 +1158,7 @@ sakai.groups.manager = function($, fluid){
                             return false;
                         }
                     });
+
                     _getSiteUsersAndGroups();
 
                     //Navigation
@@ -1242,6 +1244,9 @@ sakai.groups.manager = function($, fluid){
                     $(".searchBoxParent").unbind("click").bind("click", function(){
                         $("input.acfb-input").focus();
                     });
+
+                    //amke sure add option is selected
+                    $("input[id=action.a]").attr("checked","checked");
 
                 }catch(error){
                     if (debug){
