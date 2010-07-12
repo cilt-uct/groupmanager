@@ -9,6 +9,7 @@
    </parent>
   <name>Group Manager Help</name>
   <artifactId>sakai-groupmanager-help</artifactId>
+  <groupId>org.sakaiproject.groupmanager</groupId>
   <packaging>jar</packaging>
   <properties>
     <deploy.target>shared</deploy.target>
