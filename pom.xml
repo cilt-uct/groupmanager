@@ -112,6 +112,12 @@
       <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/snapshots</url>
       <layout>default</layout>
     </snapshotRepository>
+<site>
+  <id>cet-site</id>
+  <name>Sakai release Site</name>
+  <url>scp://srvslscet001.uct.ac.za/srv/www/vhosts/source.cet.uct.ac.za/release/groupmanager/groupmanager-${project.version}</url>
+  </site>
+
  </distributionManagement>
     <ciManagement>
         <system>Continuum</system>
