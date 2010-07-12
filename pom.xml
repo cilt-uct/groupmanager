@@ -14,9 +14,9 @@
 
     <!-- Sakai master pom is the parent -->
     <parent>
-        <artifactId>master</artifactId>
-        <groupId>org.sakaiproject</groupId>
-        <version>2.6.1</version>
+        <artifactId>sakai-standard-tool</artifactId>
+        <groupId>org.sakaiproject.purepoms</groupId>
+        <version>2.7.7</version>
         <relativePath>../master/pom.xml</relativePath>
     </parent>
 
@@ -112,10 +112,10 @@
       <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/snapshots</url>
       <layout>default</layout>
     </snapshotRepository>
-<site>
-  <id>cet-site</id>
-  <name>Sakai release Site</name>
-  <url>scp://srvslscet001.uct.ac.za/srv/www/vhosts/source.cet.uct.ac.za/release/groupmanager/groupmanager-${project.version}</url>
+    <site>
+      <id>cet-site</id>
+      <name>Sakai release Site</name>
+      <url>scp://srvslscet001.uct.ac.za/srv/www/vhosts/source.cet.uct.ac.za/release/groupmanager/groupmanager-${project.version}</url>
   </site>
 
  </distributionManagement>
