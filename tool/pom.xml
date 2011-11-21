@@ -15,7 +15,7 @@
 
    <!-- the base is the parent pom -->
    <parent>
-      <groupId>org.sakaiproject</groupId>
+      <groupId>org.sakaiproject.groupmanager</groupId>
       <artifactId>groupmanager</artifactId>
       <version>2.3-SNAPSHOT</version><!--GroupManager.version-->
    </parent>
