@@ -89,14 +89,14 @@
     <distributionManagement>
     <repository>
       <uniqueVersion>false</uniqueVersion>
-      <id>release</id>
+      <id>uct-maven2</id>
       <name>UCT Release Repo</name>
       <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/releases</url>
       <layout>default</layout>
     </repository>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
-      <id>snapshots</id>
+      <id>uct-maven-snapshots</id>
       <name>UCT snapshot Repo</name>
       <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/snapshots</url>
       <layout>default</layout>
