@@ -90,14 +90,14 @@
       <uniqueVersion>false</uniqueVersion>
       <id>cet-release</id>
       <name>UCT Release Repo</name>
-      <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/releases</url>
+      <url>http://source.cet.uct.ac.za/nexus/content/repositories/releases</url>
       <layout>default</layout>
     </repository>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
       <id>cet-snapshots</id>
       <name>UCT snapshot Repo</name>
-      <url>http://srvslscet001.uct.ac.za:8081/nexus/content/repositories/snapshots</url>
+      <url>http://source.cet.uct.ac.za/nexus/content/repositories/snapshots</url>
       <layout>default</layout>
     </snapshotRepository>
 <!--
