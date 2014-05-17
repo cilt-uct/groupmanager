@@ -55,9 +55,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</connection>
-        <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</developerConnection>
-        <url>https://source.sakaiproject.org/contrib/uct/group-manager/trunk</url>
+        <connection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</connection>
+        <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</developerConnection>
+        <url>https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</url>
     </scm>
 
     <developers>
