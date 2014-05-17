@@ -21,7 +21,7 @@
    </parent>
 
    <properties>
-      <rsfutil.version>0.7.5</rsfutil.version>
+      <rsfutil.version>0.8.0-SNAPSHOT</rsfutil.version>
       <!-- <sakairsf.sakai.version>2.2.x</sakairsf.sakai.version> -->
       <deploy.webappname>GroupManager</deploy.webappname>
       <appserver.id>${sakai.appserver.id}</appserver.id>
