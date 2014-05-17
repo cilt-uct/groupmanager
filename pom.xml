@@ -10,7 +10,7 @@
     </organization>
     <inceptionYear>2010</inceptionYear>
     <packaging>pom</packaging>
-    <version>2.4-SNAPSHOT</version><!--GroupManager.version-->
+    <version>3.0-SNAPSHOT</version><!--GroupManager.version-->
 
     <!-- Sakai master pom is the parent -->
     <parent>
@@ -55,9 +55,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</connection>
-        <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</developerConnection>
-        <url>https://source.sakaiproject.org/contrib/uct/group-manager/branches/groupmanager-3.0.x</url>
+        <connection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</connection>
+        <developerConnection>scm:svn:https://source.sakaiproject.org/contrib/uct/group-manager/trunk</developerConnection>
+        <url>https://source.sakaiproject.org/contrib/uct/group-manager/trunk</url>
     </scm>
 
     <developers>
