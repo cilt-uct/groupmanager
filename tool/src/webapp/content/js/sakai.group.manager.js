@@ -18,9 +18,9 @@
  *
  * DEFINITION:
  *
- * 
- * 
- * @class sakai.groups.manager  
+ *
+ *
+ * @class sakai.groups.manager
  * @author Lovemre Nalube lovemore.nalube@uct.ac.za
  *
  * @requires jQuery
@@ -149,7 +149,7 @@ sakai.groups.manager = function($, fluid){
                             if( typeof d.ref1 !== "undefined" ){
                                 status = d.ref1.status;
                                 if( status === 200 || status === 201 || status === 204){
-                                     for (var i = 0, il = d.ref1.data.siteGroups.length; i < il; i++) { 
+                                     for (var i = 0, il = d.ref1.data.siteGroups.length; i < il; i++) {
                                           //console.info(personFull);
                                          var groupFull = d.ref1.data.siteGroups[i];
                                          // only use Site Info type groups
@@ -162,7 +162,7 @@ sakai.groups.manager = function($, fluid){
                                               };
 
                                              if ( groupFull.users !== null || groupFull.users.length > 0){
-                                                for (var n = 0, nl = groupFull.users.length; n < nl; n++) { 
+                                                for (var n = 0, nl = groupFull.users.length; n < nl; n++) {
                                                   var memberUserId = groupFull.users[n];
                                                   group.members.push( memberUserId );
                                                 }
@@ -212,7 +212,7 @@ sakai.groups.manager = function($, fluid){
 
                 //clear any crurrent rows
                 table.find("tr[name=g-r]").remove();
-                for (var i = 0, il = siteGroups.length; i < il; i++) { 
+                for (var i = 0, il = siteGroups.length; i < il; i++) {
                     var group = siteGroups[i],
                     groupSize = 0,
                     rowTemp = rowTemplateForListRow.clone();
@@ -271,6 +271,9 @@ sakai.groups.manager = function($, fluid){
                                     .unbind("click").bind("click", function(){return false;});
                         },
                         success: function(){
+                            // use the id from the row and then remove it from the siteGroups array
+                            var thatRowId = thatRow.attr('id').replace("groupRow:","");
+                            siteGroups = siteGroups.filter(function(el){ return el['id'] != thatRowId; });
                             thatRow.fadeOut("fast", function(){
                                 thatRow.remove();
                                 _event_resizeFrame();
@@ -459,7 +462,7 @@ sakai.groups.manager = function($, fluid){
                         "members": []
                     },
                     foundAndUpdated = false;
-                    for (var i = 0, il = d.membership_collection.length; i < il; i++) { 
+                    for (var i = 0, il = d.membership_collection.length; i < il; i++) {
                       var memberFull = d.membership_collection[i];
                       group.members.push(memberFull.userId);
                     }
@@ -535,31 +538,27 @@ sakai.groups.manager = function($, fluid){
                 }else{
                     $("[id*=members-filter]").hide();
                 }
+                // add the click event for the member filter clear button
+                $("#members-filter-clear").unbind("click").bind("click", function(event) {
+                    event.preventDefault();
+                    $("#members-list li").show();
+                    $("#members-filter").val('');
+                });
                 $("#members-filter").unbind("keyup").bind("keyup", function(){
-                    var searchParam = this.value.toLowerCase().replace(/^\s*/, "").replace(/\s*$/, ""), //Trim whitespace
-                        membersDOMarray = document.getElementById("members-list").getElementsByTagName("li");
-                    if(searchParam.length > 0){
-                        for( var m in membersDOMarray){
-                            //see if no match, then hide element
-                            var memberDOM = membersDOMarray[m];
-                            if( memberDOM.nodeType === 1 ){
-                                if( searchParam === memberDOM.getElementsByTagName("span")[0].getAttribute("title").toLowerCase().slice(0, searchParam.length)){
-                                    memberDOM.style.display = "block";
-                                }else{
-                                    memberDOM.style.display = "none";
-                                }
-                            }
-                        }
-                    }else{
-                        //if filter param has been cleared, show all members
-                        for( var n in membersDOMarray){
-                            //see if no match, then hide element
-                            var memberDOM = membersDOMarray[n];
-                            if( memberDOM !== null && typeof(memberDOM) !== "undefined" && memberDOM.nodeType === 1 ){
-                                memberDOM.style.display = "block";
-                            }
-                        }
-                    }
+                  var val = this.value.toLowerCase().replace(/^\s*/, "").replace(/\s*$/, "");
+                  var searchParam = new RegExp(val, "gi"), membersDOMarray = $("#members-list li span");
+
+                  if (val.length > 0) {
+                    $.each(membersDOMarray, function(el) {
+                      if ($(this).attr('title').search(searchParam) >= 0) {
+                        $(this).parent().show();
+                      } else {
+                        $(this).parent().hide();
+                      }
+                    });
+                  } else if (val.length <= 0){
+                      $("#members-list li").show();
+                  }
                 });
                 $("#members-filter").trigger("keyup");
             },
@@ -687,7 +686,7 @@ sakai.groups.manager = function($, fluid){
                                 that.unbind("click").bind("click", _event_removeMember);
                                 //refresh group members list
                                 _updateMembersForGroup(currentGroup.groupId, function(){
-                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
+                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) {
                                         if(currentGroup.groupId === siteGroupMembers[i].groupId ){
                                             currentGroup.members = siteGroupMembers[i].members;
                                         }
@@ -710,7 +709,7 @@ sakai.groups.manager = function($, fluid){
                     $.post("/direct/membership/group/" + currentGroup.groupId, {action: saveActions.update, userIds: backedUpUserIds.toString()},
                             function(){
                                 _updateMembersForGroup(currentGroup.groupId, function(){
-                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) { 
+                                    for (var i = 0, il = siteGroupMembers.length; i < il; i++) {
                                         if(currentGroup.groupId === siteGroupMembers[i].groupId ){
                                             currentGroup.members = siteGroupMembers[i].members;
                                         }
@@ -752,7 +751,7 @@ sakai.groups.manager = function($, fluid){
                 //clear current group members before population
                 currentGroup.selectedMembers = [];   //keeps user ids
                 currentGroup.members = [];  //keeps user ids
-                                                                
+
                 if( groupId !== null ){
                     //populate this groups members' details
                     for (var i = 0, il = siteGroups.length; i < il; i++) {
@@ -873,7 +872,7 @@ sakai.groups.manager = function($, fluid){
 
                 });
             },
-    
+
             _doSaveActualGroup = function(currentGroupCopy, fnBeforeSend, fnAfterSend){
                 var url = "/direct/site/" + siteId + "/group",
                 params = { "groupTitle": currentGroupCopy.groupTitle, "groupDescription": currentGroupCopy.groupDescription === null ? "" : currentGroupCopy.groupDescription},
@@ -893,7 +892,8 @@ sakai.groups.manager = function($, fluid){
                         currentGroup.members = [];
 
                         if ( group.users !== null || group.users.length > 0){
-                            for (var n = 0, nl = group.length; n < nl; n++) {
+                            currentGroup.members = group.users; // shallow copy works
+                            /*for (var n = 0, nl = group.length; n < nl; n++) {
                               var memberUserId = group.users[n],
                               member = {
                                   "userId": memberUserId,     //Uuid
@@ -901,11 +901,11 @@ sakai.groups.manager = function($, fluid){
                                   "userSortName": null //memberFull.userSortName  will populate later
                               };
                               currentGroup.members.push( member );
-                            }
+                            }*/
                          }
 
                         if (! isNewGroup ){
-                            for (var i = 0, il = siteGroups.length; i < il; i++) { 
+                            for (var i = 0, il = siteGroups.length; i < il; i++) {
                                 if ( siteGroups[i].id === currentGroup.groupId ){
                                     siteGroups[i].title = currentGroup.groupTitle;
                                     siteGroups[i].description = currentGroup.groupDescription;
@@ -941,7 +941,7 @@ sakai.groups.manager = function($, fluid){
                             currentGroup.members = [];
                         }
                         if (typeof fnAfterSend !== "undefined"){
-                            fnAfterSend();       
+                            fnAfterSend();
                         }
                         _event_resizeFrame();
                     }
