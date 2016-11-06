@@ -10,13 +10,13 @@
     </organization>
     <inceptionYear>2010</inceptionYear>
     <packaging>pom</packaging>
-    <version>3.0-SNAPSHOT</version><!--GroupManager.version-->
+    <version>11-SNAPSHOT</version><!--GroupManager.version-->
 
     <!-- Sakai master pom is the parent -->
     <parent>
         <artifactId>master</artifactId>
         <groupId>org.sakaiproject</groupId>
-        <version>10-SNAPSHOT</version>
+        <version>11-SNAPSHOT</version>
 	<relativePath>../master/pom.xml</relativePath>
     </parent>
 
@@ -24,8 +24,6 @@
 	<module>tool</module>
 	<module>help</module>
     </modules>
-
-
 
     <!-- ensure master jars can be found -->
     <repositories>
@@ -37,12 +35,6 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-	<repository>
-            <id>mobilvox-maven</id>
-            <name>Mobilvox Maven Repo</name>
-            <layout>default</layout>
-            <url>http://snapshots.repository.codehaus.org</url>
         </repository>
     </repositories>
 
@@ -61,31 +53,6 @@
         <url>https://source.sakaiproject.org/contrib/uct/group-manager/trunk</url>
     </scm>
 
-    <developers>
-        <developer>
-                <id>lovemore.nalube@uct.ac.za</id>
-                <name>Lovemore Nalube</name>
-                <email>lovermore.nalube@uct.ac.za</email>
-                <organization>Centre for Educational Technology, University of
-                        Cape Town</organization>
-                <organizationUrl>http://www.cet.uct.ac.za</organizationUrl>
-                <timezone>+2</timezone>
-                <roles>
-                        <role>lead developer</role>
-                </roles>
-        </developer>
-    </developers>
-    
-    <pluginRepositories>
-            <pluginRepository>
-                    <id>codehaus snapshot repository</id>
-                    <url>http://snapshots.repository.codehaus.org/</url>
-                    <releases>
-                            <enabled>true</enabled>
-                    </releases>
-            </pluginRepository>
-    </pluginRepositories>
-    
     <distributionManagement>
     <repository>
       <uniqueVersion>false</uniqueVersion>
@@ -101,13 +68,6 @@
       <url>http://source.cet.uct.ac.za/nexus/content/repositories/snapshots</url>
       <layout>default</layout>
     </snapshotRepository>
-<!--
-    <site>
-      <id>cet-site</id>
-      <name>Sakai release Site</name>
-      <url>scp://srvslscet001.uct.ac.za/srv/www/vhosts/source.cet.uct.ac.za/release/groupmanager/groupmanager-${project.version}</url>
-  </site>
--->
  </distributionManagement>
 
 </project>
