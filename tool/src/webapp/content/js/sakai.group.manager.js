@@ -1090,7 +1090,6 @@ sakai.groups.manager = function($, fluid){
 
             //resize iframe
             _event_resizeFrame = function(){
-                window.onload();
                 $("#errors").hide();
             },
 
