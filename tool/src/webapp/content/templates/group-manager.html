@@ -60,7 +60,7 @@
             <!-- Left Panel -->
              <div class="group-body editActualGroupWrapper">
 
-                <h3>
+                <h3 style="margin: 0.5rem 0;">
                     <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
                     <span class="navigate">   >  </span>
                     <span id="group-title" class="editActualGroup"> Title </span>
@@ -71,7 +71,7 @@
                     <span id="group-description" class="editActualGroup"></span>
                 </div>
 
-                <p class="instruction infoItem">To edit the membership of this group, search for participants or
+                <p class="instruction" style="width: calc(100%);">To edit the membership of this group, search for participants or
                 paste a list of user names into the boxes provided. Then select
                 Add, Remove or Replace and click Update to make the required changes.
                 </p>
@@ -117,13 +117,13 @@
         </td>
         <td valign="top">
              <!-- Right Panel -->
-            <div id="members" style="width: 320px; background-color: #eee;" >
-                <div class="membersCounter" style="padding-bottom: 5px;background-color:#E4E4E4">
-                    <span id="members-number" style="font-size: 30px; padding-left: 5px;">0</span>
+            <div id="members" style="width: 320px;max-width: 100%; background-color: #eee;float: right;" >
+                <div class="membersCounter" style="background-color:#E4E4E4">
+                    <span id="members-number" style="line-height: 1;font-size: 30px; padding-left: 5px;">0</span>
                     <span id="members-number-title">Group members</span>
-                    <div style="padding-left: 7px; text-align: left; padding-top: 5px;">
+                    <div class="group-members-filter">
                         <a style="display: block; float: right; height: 18px; width: 18px; background: transparent url('/sakai-groupmanager-tool/content/images/delete.gif') no-repeat scroll center center; margin-top: 2px; margin-right: 4px;" id="members-filter-clear" href="#" title="Clear filter"></a>
-                        <span id="members-filter-text" class="instruction">Filter:</span>
+                        <span id="members-filter-text">Filter:</span>
                         <input id="members-filter" type="text" style="width:150px" autocomplete="off" />
                     </div>
                 </div>
