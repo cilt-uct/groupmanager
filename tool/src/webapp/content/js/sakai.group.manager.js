@@ -126,8 +126,8 @@ sakai.groups.manager = function($, fluid){
 
                 var requestOptions = { method: 'GET', headers: myHeaders, redirect: 'follow'};
                 fetch("/direct/batch?_refs=" + ebRefs.toString(), requestOptions)
-                .then(response => response.text())
-                .then( function(d){
+                .then(response => response.json())
+                .then(function(d){
                     var status;
                     if ( typeof d.ref0 !== "undefined" ){
                         status = d.ref0.status;
