@@ -120,89 +120,89 @@ sakai.groups.manager = function($, fluid){
 
                 var ebRefs = [ "/direct/membership/site/"+ siteId,  //will be response object ref0
                     "/direct/site/"+ siteId +"?includeGroups=true" ];            //will be response object ref1
-                $.ajax({
-                    url: "/direct/batch?_refs=" + ebRefs.toString(),
-                    dataType: 'json',
-                    cache: false,
-                    global: false,
-                    success: function(d){
-                            var status;
-                            if ( typeof d.ref0 !== "undefined" ){
-                                status = d.ref0.status;
-                                if( status === 200 || status === 201 || status === 204 ){
-                                    //backup membership json array so the autocomplete can use it. Autocomplete does not accept objects
-                                    siteMembersRawJSON = d.ref0.data.membership_collection;
-                                    for (var i = 0, il = d.ref0.data.membership_collection.length; i < il; i++) {
-                                          var memberFull = d.ref0.data.membership_collection[i],
-                                          member = new User();
-                                          member.userId = memberFull.userId;
-                                          member.userDisplayId = memberFull.userDisplayId;
-                                          member.userSortName = memberFull.userSortName;
-                                          siteMembers[member.userId] = member;
-                                         //console.info("FOUND USRE: %o", member);
-                                      }
-                                }else{
-                                    //Error occured fetching site membership
-                                    _errorStop("Ooops, an error occured fetching the Site Users. Are you logged in and have rights to edit groups?");
-                                }
-                            }
-                            if( typeof d.ref1 !== "undefined" ){
-                                status = d.ref1.status;
-                                if( status === 200 || status === 201 || status === 204){
-                                     for (var i = 0, il = d.ref1.data.siteGroups.length; i < il; i++) {
-                                          //console.info(personFull);
-                                         var groupFull = d.ref1.data.siteGroups[i];
-                                         // only use Site Info type groups
-                                         if(groupFull.props !== null && groupFull.props.group_prop_wsetup_created === "true"){
-                                              var group = {
-                                                  "id": groupFull.id,
-                                                  "title": groupFull.title,
-                                                  "description": groupFull.description,
-                                                  "members": []
-                                              };
 
-                                             if ( groupFull.users !== null || groupFull.users.length > 0){
-                                                for (var n = 0, nl = groupFull.users.length; n < nl; n++) {
-                                                  var memberUserId = groupFull.users[n];
-                                                  group.members.push( memberUserId );
-                                                }
-                                             }
-                                             siteGroups.push( group );
-                                             siteGroupMembers.push( { "groupId": groupFull.id, "members": group.members } );
-                                         }
-                                      }
-                                    if( siteGroups.length === 0){
-                                        siteHasGroups = false;
-                                        $("#errors").text("This site has no groups").removeClass().addClass("information").show();
-                                        $("img.img-loading").remove();
-                                    }else{
-                                        _event_showBindTableGroups();
+                var myHeaders = new Headers();
+                myHeaders.append("Accept", "application/json");
+
+                var requestOptions = { method: 'GET', headers: myHeaders, redirect: 'follow'};
+                fetch("/direct/batch?_refs=" + ebRefs.toString(), requestOptions)
+                .then(response => response.json())
+                .then(function(d){
+                    var status;
+                    if ( typeof d.ref0 !== "undefined" ){
+                        status = d.ref0.status;
+                        if( status === 200 || status === 201 || status === 204 ){
+                            //backup membership json array so the autocomplete can use it. Autocomplete does not accept objects
+                            siteMembersRawJSON = d.ref0.data.membership_collection;
+                            for (var i = 0, il = d.ref0.data.membership_collection.length; i < il; i++) {
+                                  var memberFull = d.ref0.data.membership_collection[i],
+                                  member = new User();
+                                  member.userId = memberFull.userId;
+                                  member.userDisplayId = memberFull.userDisplayId;
+                                  member.userSortName = memberFull.userSortName;
+                                  siteMembers[member.userId] = member;
+                                 //console.info("FOUND USRE: %o", member);
+                              }
+                        }else{
+                            //Error occured fetching site membership
+                            _errorStop("Ooops, an error occured fetching the Site Users. Are you logged in and have rights to edit groups?");
+                        }
+                    }
+                    if( typeof d.ref1 !== "undefined" ){
+                        status = d.ref1.status;
+                        if( status === 200 || status === 201 || status === 204){
+                            for (var i = 0, il = d.ref1.data.siteGroups.length; i < il; i++) {
+                                //console.info(personFull);
+                                var groupFull = d.ref1.data.siteGroups[i];
+                                // only use Site Info type groups
+                                if(groupFull.props !== null && groupFull.props.group_prop_wsetup_created === "true"){
+                                    var group = {
+                                        "id": groupFull.id,
+                                        "title": groupFull.title,
+                                        "description": groupFull.description,
+                                        "members": []
+                                    };
+
+                                    if ( groupFull.users !== null || groupFull.users.length > 0){
+                                        for (var n = 0, nl = groupFull.users.length; n < nl; n++) {
+                                            var memberUserId = groupFull.users[n];
+                                            group.members.push( memberUserId );
+                                        }
                                     }
-
-                                }else if (status === 500){
-                                    siteHasGroups = false;
-                                    $("#errors").text("This site has no groups").removeClass().addClass("information").show();
-                                    $("img.img-loading").remove();
-                                }else{
-                                    //Error occured fetching groups
-                                    _errorStop("Error occured fetching groups");
+                                    siteGroups.push( group );
+                                    siteGroupMembers.push( { "groupId": groupFull.id, "members": group.members } );
                                 }
                             }
-                        },
-                        error: function(xhr) {
-                            if (xhr.status === 500){
+                            if( siteGroups.length === 0){
                                 siteHasGroups = false;
                                 $("#errors").text("This site has no groups").removeClass().addClass("information").show();
                                 $("img.img-loading").remove();
                             }else{
-                                ajaxCustomErrorMsg = "Oops, the server could not process your action due to this error: " + xhr.statusText + " (" + xhr.status + ").";
-                                _errorStop(ajaxCustomErrorMsg, true);
-                                alert(ajaxCustomErrorMsg);
+                                _event_showBindTableGroups();
                             }
-                            return false;
-                        }
-                });
 
+                        }else if (status === 500){
+                            siteHasGroups = false;
+                            $("#errors").text("This site has no groups").removeClass().addClass("information").show();
+                            $("img.img-loading").remove();
+                        }else{
+                            //Error occured fetching groups
+                            _errorStop("Error occured fetching groups");
+                        }
+                    }
+                })
+                .catch(function(xhr) {
+                    if (xhr.status === 500){
+                        siteHasGroups = false;
+                        $("#errors").text("This site has no groups").removeClass().addClass("information").show();
+                        $("img.img-loading").remove();
+                    }else{
+                        ajaxCustomErrorMsg = "Oops, the server could not process your action due to this error: " + xhr.statusText + " (" + xhr.status + ").";
+                        _errorStop(ajaxCustomErrorMsg, true);
+                        alert(ajaxCustomErrorMsg);
+                    }
+                    return false;
+                });
             },
 
             _event_showBindTableGroups = function(){
