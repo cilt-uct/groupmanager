@@ -1,175 +1,192 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<title>Adhoc Group Selector Helper</title>
-<script type="text/javascript" rsf:id="scr=portal-matter" language="JavaScript" src="/library/js/headscripts.js"></script>
-<link href="/library/skin/tool_base.css" rsf:id="scr=portal-matter" type="text/css" rel="stylesheet" media="all" />
-<link href="/library/skin/default/tool.css" rsf:id="scr=portal-matter" type="text/css" rel="stylesheet" media="all" />
-<link rel="stylesheet" type="text/css" href="../css/group-manager.css" />
-<link rel="stylesheet" type="text/css" href="../css/jquery.autocompletefb.css" />
-<link rel="stylesheet" type="text/css" href="../css/fluid/InlineEdit.css" />
-<script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
-<script type='text/javascript' src='../js/jquery.autocomplete/jquery.bgiframe.min.js'></script>
-<script type='text/javascript' src='../js/jquery.autocomplete/jquery.dimensions.js'></script>
-<script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocomplete.js'></script>
-<script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocompletefb.js'></script>
-<script type='text/javascript' src='../js/jquery.ui.core.js'></script>
-<script type='text/javascript' src='../js/jquery.keyboard-a11y.js'></script>
-<script type='text/javascript' src='../js/jquery.tooltip.js'></script>
-<script type='text/javascript' src='../js/fluid/Fluid.js'></script>
-<script type='text/javascript' src='../js/fluid/InlineEdit.js'></script>
-<script type="text/javascript" src="../js/sakai.group.manager.js"></script>
-</head>
-<body>
-<div class="portletBody">
-<div id="groups">
+    <head>
+        <title>Adhoc Group Selector Helper</title>
+        <script type="text/javascript" rsf:id="scr=portal-matter" language="JavaScript" src="/library/js/headscripts.js"></script>
+        <link href="/library/skin/tool_base.css" rsf:id="scr=portal-matter" type="text/css" rel="stylesheet" media="all" />
+        <link href="/library/skin/default/tool.css" rsf:id="scr=portal-matter" type="text/css" rel="stylesheet" media="all" />
+        <link rel="stylesheet" type="text/css" href="../css/group-manager.css" />
+        <link rel="stylesheet" type="text/css" href="../css/jquery.autocompletefb.css" />
+        <link rel="stylesheet" type="text/css" href="../css/fluid/InlineEdit.css" />
+        <script type="text/javascript" src="../js/jquery-1.4.2.min.js"></script>
+        <script type='text/javascript' src='../js/jquery.autocomplete/jquery.bgiframe.min.js'></script>
+        <script type='text/javascript' src='../js/jquery.autocomplete/jquery.dimensions.js'></script>
+        <script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocomplete.js'></script>
+        <script type='text/javascript' src='../js/jquery.autocomplete/jquery.autocompletefb.js'></script>
+        <script type='text/javascript' src='../js/jquery.ui.core.js'></script>
+        <script type='text/javascript' src='../js/jquery.keyboard-a11y.js'></script>
+        <script type='text/javascript' src='../js/jquery.tooltip.js'></script>
+        <script type='text/javascript' src='../js/fluid/Fluid.js'></script>
+        <script type='text/javascript' src='../js/fluid/InlineEdit.js'></script>
+        <script type="text/javascript" src="../js/sakai.group.manager.js"></script>
+    </head>
+    <body>
+        <div class="portletBody">
+            <div id="groups">
 
-<div class="group-list-body">
-<p />
-<h3 class="addItem noUnderline">
-    <a id="nav-create-group" title="Create a new group" href="#create">Create a new group</a>
-</h3>
+                <div class="group-list-body">
+                    <p />
+                    <h3 class="addItem noUnderline">
+                        <a id="nav-create-group" title="Create a new group" href="#create">Create a new group</a>
+                    </h3>
 
-<h3 id="groups-selector-title">Groups <img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Fetching groups..." title="Fetching groups..."/> </h3>
-<table id="groups-selector" cellspacing="0" border="0" class="listHier lines nolines" style="display:none;">
-	<thead>
-		<tr>
-			<th width="35%">Title</th>
-            <th>Size</th>
-            <th>Description</th>
-            <th>Remove?</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr name="g-r">
-            <input name="g-id" type="hidden"/>
-			<td name="g-n"><a class="g-link" href="#edit-group" title="Edit group membership">----</a></td>
-            <td name="g-s"><img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Counting members..." title="Counting members..."/></td>
-            <td name="g-d" title=""></td>
-            <td><a class="group-remove" href="#"><img border="0" alt="Remove" title="Remove this group" src="/library/image/sakai/cross.png" /></a></td>
-		</tr>
-	</tbody>
-</table>
-</div>
+                    <h3 id="groups-selector-title">Groups <img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Fetching groups..." title="Fetching groups..."/> </h3>
+                    <table id="groups-selector" cellspacing="0" border="0" class="listHier lines nolines" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th width="35%">Title</th>
+                                <th>Size</th>
+                                <th>Description</th>
+                                <th>Remove?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr name="g-r">
+                        <input name="g-id" type="hidden"/>
+                        <td name="g-n"><a class="g-link" href="#edit-group" title="Edit group membership">----</a></td>
+                        <td name="g-s"><img src="/library/image/sakai/spinner.gif" class="img-loading" alt="Counting members..." title="Counting members..."/></td>
+                        <td name="g-d" title=""></td>
+                        <td><a class="group-remove" href="#"><img border="0" alt="Remove" title="Remove this group" src="/library/image/sakai/cross.png" /></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-<div id="group" style="display: none">
-<table cellspacing="6" border="0" style="width:100%">
-	<tr>
-        <td style="width:70%" valign="top">
-            <!-- Left Panel -->
-             <div class="group-body editActualGroupWrapper">
+                <div id="group" style="display: none">
+                    <table cellspacing="6" border="0" style="width:100%">
+                        <tr>
+                            <td style="width:70%" valign="top">
+                                <!-- Left Panel -->
+                                <div class="group-body editActualGroupWrapper">
 
-                <h3 style="margin: 0.5rem 0;">
+                                    <h3 style="margin: 0.5rem 0;">
+                                        <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
+                                        <span class="navigate">   >  </span>
+                                        <span id="group-title" class="editActualGroup"> Title </span>
+                                    </h3>
+
+                                    <div class="editActualGroupParent act">
+                                        <span id="group-description-title" style="font-weight: bold;">Description: </span>
+                                        <span id="group-description" class="editActualGroup"></span>
+                                    </div>
+
+                                    <p class="instruction" style="width: calc(100%);">To edit the membership of this group, search for participants or
+                                        paste a list of user names into the boxes provided. Then select
+                                        Add, Remove or Replace and click Update to make the required changes.
+                                    </p>
+                                    <div class="autocompleteParent">
+                                        <div class="searchTitle">
+                                            Search for site participants
+                                        </div>
+                                        <div class="searchBoxParent">
+                                            <ul id="group-current-members-autocomplete" class="first acfb-holder">
+                                                <input type="text" class="city acfb-input" autocomplete="off"/>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="usernames">
+                                            Paste usernames
+                                        </div>
+                                        <textarea cols="25" wrap="virtual" rows="5" id="group-members-paste" style="width: 50%;"></textarea>
+                                    </div>
+
+                                    <div class="act">
+                                        <div id="action-group-success" class="success noUnderline" style="display:none;">
+                                            <span>
+
+                                            </span>
+                                            <a href="#undo" class="img-undo navigate" title="Undo">
+                                                <img alt="Undo" src="/sakai-groupmanager-tool/content/images/arrow_undo.png"/>
+                                                Undo
+                                            </a>
+                                        </div>
+                                        <fieldset>
+                                            <div class="checkbox">
+                                                <label for="action.a">
+                                                    <input type="radio" id="action.a" name="action" value="add" checked="checked" />
+                                                    <strong>Add</strong> the user(s) listed above to this group
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label for="action.rm">
+                                                    <input type="radio" id="action.rm" name="action" value="remove" />
+                                                    <strong>Remove</strong> the user(s) listed above from this group
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label for="action.u">
+                                                    <input type="radio" id="action.u" name="action" value="update" />
+                                                    <strong>Replace</strong> existing members of this group with the user(s) listed above
+                                                </label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="act doAction">
+                                        <input type="button" id="doAction" value="Update" class="active"/>
+                                        <input type="button" class="nav-list" value="Back" />
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td valign="top">
+                                <!-- Right Panel -->
+                                <div id="members" style="width: 320px;max-width: 100%; background-color: #eee;float: right;" >
+                                    <div class="membersCounter" style="background-color:#E4E4E4">
+                                        <span id="members-number" style="line-height: 1;font-size: 30px; padding-left: 5px;">0</span>
+                                        <span id="members-number-title">Group members</span>
+                                        <div class="group-members-filter">
+                                            <a style="display: block; float: right; height: 18px; width: 18px; background: transparent url('/sakai-groupmanager-tool/content/images/delete.gif') no-repeat scroll center center; margin-top: 2px; margin-right: 4px;" id="members-filter-clear" href="#" title="Clear filter"></a>
+                                            <span id="members-filter-text">Filter:</span>
+                                            <input id="members-filter" type="text" style="width:150px" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="membersList" style="overflow: auto; height: 350px;">
+                                        <ul id="members-list" class="acfb-holder" style="border: 0px none ;"></ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div id="errors" class="alertMessage" style="display: none;"></div>
+
+            <div id="edit-form" style="display:none;">
+                <p />
+                <h3 class="noUnderline">
                     <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
                     <span class="navigate">   >  </span>
-                    <span id="group-title" class="editActualGroup"> Title </span>
+                    <span> Create New Group </span>
                 </h3>
-
-                <div class="editActualGroupParent act">
-                    <span id="group-description-title" style="font-weight: bold;">Description: </span>
-                    <span id="group-description" class="editActualGroup"></span>
+                <div class="shorttext">
+                    <label for="form-group-title" style="float: none; clear: both; margin: 0pt; padding: 0pt;">
+                        <span class="reqStar">*</span>
+                        <span>Title</span>
+                    </label>
+                    <p>
+                        <input type="text" id="form-group-title" size="50" value="" />
+                    </p>
                 </div>
 
-                <p class="instruction" style="width: calc(100%);">To edit the membership of this group, search for participants or
-                paste a list of user names into the boxes provided. Then select
-                Add, Remove or Replace and click Update to make the required changes.
-                </p>
-                <div class="autocompleteParent">
-                    <div class="searchTitle">
-                        Search for site participants
-                    </div>
-                    <div class="searchBoxParent">
-                        <ul id="group-current-members-autocomplete" class="first acfb-holder">
-                            <input type="text" class="city acfb-input" autocomplete="off"/>
-                        </ul>
-                    </div>
+                <label for="form-group-description">Description</label>
+
+                <div style="width: 70%;">
+                    <textarea id="form-group-description" rows="7" cols="60"></textarea>
                 </div>
 
-                <div>
-                    <div class="usernames">
-                        Paste usernames
-                    </div>
-                <textarea cols="25" wrap="virtual" rows="5" id="group-members-paste" style="width: 50%;"></textarea>
-                </div>
-
-                <div class="act">
-                    <div id="action-group-success" class="success noUnderline" style="display:none;">
-                        <span>
-
-                        </span>
-                        <a href="#undo" class="img-undo navigate" title="Undo">
-                            <img alt="Undo" src="/sakai-groupmanager-tool/content/images/arrow_undo.png"/>
-                            Undo
-                        </a>
-                    </div>
-                    <input type="radio" id="action.a" name="action" value="add" checked="checked" /> <label for="action.a"><b>Add</b> the user(s) listed above to this group</label><br />
-                    <input type="radio" id="action.rm" name="action" value="remove" /> <label for="action.rm"><b>Remove</b> the user(s) listed above from this group</label> <br />
-                    <input type="radio" id="action.u" name="action" value="update" /> <label for="action.u"><b>Replace</b> existing members of this group with the user(s) listed above</label>   <br />
-                </div>
-
-                <div class="act doAction">
-                    <input type="button" id="doAction" value="Update" class="active"/>
+                <div class="act doGroupAction">
+                    <input type="button" id="doGroupAction" value="Save and add members" class="active"/>
                     <input type="button" class="nav-list" value="Back" />
                 </div>
-
             </div>
-        </td>
-        <td valign="top">
-             <!-- Right Panel -->
-            <div id="members" style="width: 320px;max-width: 100%; background-color: #eee;float: right;" >
-                <div class="membersCounter" style="background-color:#E4E4E4">
-                    <span id="members-number" style="line-height: 1;font-size: 30px; padding-left: 5px;">0</span>
-                    <span id="members-number-title">Group members</span>
-                    <div class="group-members-filter">
-                        <a style="display: block; float: right; height: 18px; width: 18px; background: transparent url('/sakai-groupmanager-tool/content/images/delete.gif') no-repeat scroll center center; margin-top: 2px; margin-right: 4px;" id="members-filter-clear" href="#" title="Clear filter"></a>
-                        <span id="members-filter-text">Filter:</span>
-                        <input id="members-filter" type="text" style="width:150px" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="membersList" style="overflow: auto; height: 350px;">
-                    <ul id="members-list" class="acfb-holder" style="border: 0px none ;"></ul>
-                </div>
-            </div>
-        </td>
-	</tr>
-</table>
-
-</div>
-
-</div>
-
-<div id="errors" class="alertMessage" style="display: none;"></div>
-
-<div id="edit-form" style="display:none;">
-    <p />
-    <h3 class="noUnderline">
-        <a title="Groups" href="#home" class="nav-list navigate">Groups</a>
-        <span class="navigate">   >  </span>
-        <span> Create New Group </span>
-    </h3>
-    <div class="shorttext">
-        <label for="form-group-title" style="float: none; clear: both; margin: 0pt; padding: 0pt;">
-            <span class="reqStar">*</span>
-            <span>Title</span>
-        </label>
-        <p>
-            <input type="text" id="form-group-title" size="50" value="" />
-        </p>
-    </div>
-
-    <label for="form-group-description">Description</label>
-
-    <div style="width: 70%;">
-        <textarea id="form-group-description" rows="7" cols="60"></textarea>
-    </div>
-
-    <div class="act doGroupAction">
-        <input type="button" id="doGroupAction" value="Save and add members" class="active"/>
-        <input type="button" class="nav-list" value="Back" />
-    </div>
-</div>
-    <span rsf:id="siteId" id="siteId" style="display: none;"></span>
-</div>
-</body>
+            <span rsf:id="siteId" id="siteId" style="display: none;"></span>
+        </div>
+    </body>
 </html>
