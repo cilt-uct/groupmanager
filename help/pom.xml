@@ -4,7 +4,7 @@
    <parent>
       <artifactId>groupmanager</artifactId>
       <groupId>org.sakaiproject.groupmanager</groupId>
-      <version>20-SNAPSHOT</version>
+      <version>21-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
   <name>Group Manager Help</name>
